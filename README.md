@@ -1,15 +1,34 @@
 # Bistro Management App
+
 ## Project Description
-The Bistro Application is a software developed with the purpose of enabling the management of food, orders, reservations, dining tables, and users. It filters out functionality based on the kind of user signed in, and ensures via JWT the current user is authorized to perform changes to sensitive data. By having customers log in and use the interface, they can create orders and reservations for themselves as the staff can view the data and focus on their personal tasks
+
+The Bistro Application is a comprehensive software solution designed to manage food, orders, reservations, dining tables, and users efficiently. It features role-based functionality, ensuring that the available actions depend on the type of user logged in. With JSON Web Tokens (JWT) authentication, the app secures sensitive operations, granting permissions based on the user’s role. Customers can log in to place orders and make reservations, while staff members can access and manage data relevant to their tasks.
 
 ## Tech Used
-- ReactJS
-- TailwindCSS
-- 
-## Backend Set-UP
+
+- **ReactJS:** For building the dynamic and interactive user interface.
+- **TailwindCSS:** For utility-first CSS styling, allowing rapid and responsive design.
+
+## Backend Setup
+
+*Details on the backend setup will be added here.*
 
 ## Frontend Setup
 
+*Details on the frontend setup will be added here.*
+
 ## Routes
 
+### Customers
+
+*Details on customer-specific routes will be added here.*
+
+### Staff
+
+*Details on staff-specific routes will be added here.*
+
 ## Tests
+
+*Details on testing strategies and coverage will be added here.*
+
+---
