@@ -1,6 +1,6 @@
 ## User Stories and API Endpoints
 
-###Customer Operations
+### Customer Operations
 
 #### View Menu
 - **As a** user,
@@ -37,7 +37,7 @@
 
 
 
-###Administrator (Staff) Controls
+### Administrator (Staff) Controls
 
 #### View Orders
 - **As an** administrator,
