@@ -1,6 +1,6 @@
 ## User Stories and API Endpoints
-
-### Customer Operations
+<details>
+<summary>Customer Operations</summary>
 
 #### View Menu
 - **As a** user,
@@ -34,8 +34,10 @@
 **API Endpoints:**
 - `POST /reservations`: Make a new reservation.
 - `DELETE /reservations/{id}`: Cancel a reservation.
+</details>
 
-### Administrator (Staff) Controls
+<details>
+<summary>Administrator (Staff) Controls</summary>
 
 #### View Orders
 - **As an** administrator,
@@ -69,3 +71,4 @@
 
 **API Endpoint:**
 - `PUT /orders/{id}/status`: Update the status of an order to settled or unsettled.
+</details>
