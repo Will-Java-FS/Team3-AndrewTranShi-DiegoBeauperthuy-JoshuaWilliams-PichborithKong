@@ -10,7 +10,7 @@ The Bistro Application is a comprehensive software solution designed to manage f
 
 ## User Stories and API Endpoints
 <details>
-<summary>### Customer Operations</summary>
+<summary>Customer Operations</summary>
 
 #### View Menu
 - **As a** user,
