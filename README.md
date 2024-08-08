@@ -10,7 +10,7 @@ The Bistro Management Application is a robust software solution tailored to effi
   - **ReactJS** - For building a dynamic and interactive user interface.
 
 - **Backend:**
-  - **Node.js/Express** - For creating the backend API and handling authentication.
+  - **Spring**
   - **JWT (JSON Web Tokens)** - For securing endpoints and managing user sessions.
 
 ## Database Design
