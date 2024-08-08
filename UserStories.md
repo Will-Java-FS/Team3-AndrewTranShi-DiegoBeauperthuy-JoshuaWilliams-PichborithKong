@@ -3,6 +3,7 @@
 ### Customer Operations
 <details>
 <summary>View Menu</summary>
+  
 - **As a** user,
 - **I want** to view the menu,
 - **So that** I can see the available dishes and make informed choices.
@@ -13,6 +14,7 @@
 
 <details>
 <summary>Order from Menu</summary>
+  
 - **As a** user,
 - **I want** to order from the menu,
 - **So that** I can enjoy my selected dishes.
@@ -23,6 +25,7 @@
 
 <details>
 <summary>Edit My Order</summary>
+  
 - **As a** user,
 - **I want** to edit my order,
 - **So that** I can make changes before it is prepared.
@@ -33,6 +36,7 @@
 
 <details>
 <summary>Reserve/Cancel a Table</summary>
+  
 - **As a** user,
 - **I want** to reserve or cancel a table,
 - **So that** I can ensure a table is available when I arrive or cancel if my plans change.
@@ -46,6 +50,7 @@
 ### Administrator (Staff) Controls
 <details>
 <summary>View Orders</summary>
+  
 - **As an** administrator,
 - **I want** to view all orders,
 - **So that** I can oversee the order process and ensure everything is running smoothly.
@@ -56,6 +61,7 @@
 
 <details>
 <summary>Add or Edit Menu Food Item</summary>
+  
 - **As an** administrator,
 - **I want** to add or edit a menu food item,
 - **So that** I can keep the menu up-to-date with new dishes or changes to existing ones.
@@ -67,6 +73,7 @@
 
 <details>
 <summary>Cancel or Delete Orders</summary>
+  
 - **As an** administrator,
 - **I want** to cancel or delete orders,
 - **So that** I can manage order changes and handle issues.
@@ -77,6 +84,7 @@
 
 <details>
 <summary>Change Order Status to Settled or Unsettled</summary>
+  
 - **As an** administrator,
 - **I want** to change the status of orders to settled or unsettled,
 - **So that** I can track which orders have been paid for and which are still outstanding.
