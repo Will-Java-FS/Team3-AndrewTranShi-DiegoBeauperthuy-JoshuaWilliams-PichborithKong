@@ -3,9 +3,10 @@
 ### Customer Operations
 
 #### User Story: Place Orders and Reservations
-- **As a** customer,
-- **I want** to be able to place orders and make reservations,
-- **So that** I can enjoy a seamless dining experience and ensure that my table and meals are ready when I arrive.
+- **As a User**, I can view the menu.
+- **As a User**, I can order from the menu.
+- **As a User**, I can edit my order.
+- **As a User**, I can reserve/cancel a table.
 
 **API Endpoints:**
 - `GET /orders`: Retrieve all current orders.
@@ -29,9 +30,11 @@
 ### Administrator Controls
 
 #### User Story: Control User Roles and Permissions
-- **As an** administrator,
-- **I want** to control user roles and permissions through JWT authentication,
-- **So that** sensitive operations are secured and users have access only to the actions relevant to their role.
+- **As an admin**, I can view orders.
+- **As an admin**, I can view reservations
+- **As an admin**, I can assign a dinning table to a client
+- **As an admin**, I can cancel a reservation
+
 
 **API Endpoints:**
 - `CRUD /users`: Manage user accounts and roles.
