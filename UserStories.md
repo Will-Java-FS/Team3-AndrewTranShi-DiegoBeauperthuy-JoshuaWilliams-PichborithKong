@@ -2,68 +2,62 @@
 
 ### Customer Operations
 
-#### User Story: Place Orders and Reservations
-- **As a User**, I can view the menu.
-- **As a User**, I can order from the menu.
-- **As a User**, I can edit my order.
-- **As a User**, I can reserve/cancel a table.
+#### User Story: View Menu
+- **As a** user,
+- **I want** to view the menu,
+- **So that** I can see the available dishes and make informed choices.
+
+**API Endpoints:**
+- `GET /menu`: Retrieve all menu items.
+
+#### User Story: Order from Menu
+- **As a** user,
+- **I want** to order from the menu,
+- **So that** I can enjoy my selected dishes.
+
+**API Endpoints:**
+- `POST /orders`: Place a new order.
+
+#### User Story: Edit My Order
+- **As a** user,
+- **I want** to edit my order,
+- **So that** I can make changes before it is prepared.
+
+**API Endpoints:**
+- `PUT /orders/{id}`: Update an existing order.
+
+#### User Story: Reserve/Cancel a Table
+- **As a** user,
+- **I want** to reserve or cancel a table,
+- **So that** I can ensure a table is available when I arrive or cancel if my plans change.
+
+**API Endpoints:**
+- `POST /reservations`: Make a new reservation.
+- `DELETE /reservations/{id}`: Cancel a reservation.
+
+### Administrator (Staff) Controls
+
+#### User Story: View Orders
+- **As an** administrator,
+- **I want** to view all orders,
+- **So that** I can oversee the order process and ensure everything is running smoothly.
 
 **API Endpoints:**
 - `GET /orders`: Retrieve all current orders.
-- `POST /orders`: Place a new order.
-- `GET /reservations`: Retrieve all current reservations.
-- `POST /reservations`: Make a new reservation.
 
-### Staff Management
-
-#### User Story: Manage Operational Data
-- **As a** staff member,
-- **I want** to access and manage data related to food, orders, reservations, and dining tables,
-- **So that** I can efficiently handle customer requests and ensure smooth operations.
-
-**API Endpoints:**
-- `CRUD /menu`: Manage menu items (Create, Read, Update, Delete).
-- `CRUD /orders`: Manage orders.
-- `CRUD /reservations`: Manage reservations.
-- `CRUD /tables`: Manage dining tables.
-
-### Administrator Controls
-
-#### User Story: Control User Roles and Permissions
-- **As an admin**, I can view orders.
-- **As an admin**, I can view reservations
-- **As an admin**, I can assign a dinning table to a client
-- **As an admin**, I can cancel a reservation
-
-
-**API Endpoints:**
-- `CRUD /users`: Manage user accounts and roles.
-- `POST /login`: Handle user authentication and token issuance.
-
-### Menu Management
-
-#### User Story: Menu Table Creation and Management
+#### User Story: Cancel or Delete Orders
 - **As an** administrator,
-- **I want** to add, update, and delete food items on the menu,
-- **So that** the restaurant can update its offerings in real-time and manage inventory effectively.
+- **I want** to cancel or delete orders,
+- **So that** I can manage order changes and handle issues.
 
 **API Endpoints:**
-- `POST /menu`: Add a new food item to the menu.
-- `GET /menu`: Retrieve all menu items.
-- `PUT /menu/{id}`: Update a specific food item.
-- `DELETE /menu/{id}`: Remove a food item from the menu.
+- `DELETE /orders/{id}`: Cancel or delete an order.
 
-### Reservation Management
-
-#### User Story: Efficient Reservation Handling
-- **As a** staff member,
-- **I want** to manage reservations efficiently,
-- **So that** I can better organize seating and scheduling to enhance customer satisfaction.
+#### User Story: Change Order Status to Settled or Unsettled
+- **As an** administrator,
+- **I want** to change the status of orders to settled or unsettled,
+- **So that** I can track which orders have been paid for and which are still outstanding.
 
 **API Endpoints:**
-- `GET /reservations`: Retrieve all reservations.
-- `POST /reservations`: Create a new reservation.
-- `PUT /reservations/{id}`: Update an existing reservation.
-- `DELETE /reservations/{id}`: Cancel a reservation.
+- `PUT /orders/{id}/status`: Update the status of an order to settled or unsettled.
 
----

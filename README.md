@@ -7,8 +7,7 @@ The Bistro Application is a comprehensive software solution designed to manage f
 ## Tech Used
 
 - **ReactJS:** For building the dynamic and interactive user interface.
-- **TailwindCSS:** For utility-first CSS styling, allowing rapid and responsive design.
-
+-
 ## Backend Setup
 
 *Details on the backend setup will be added here.*
