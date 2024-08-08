@@ -45,7 +45,9 @@ The Bistro Application is a comprehensive software solution designed to manage f
 - `POST /reservations`: Make a new reservation.
 - `DELETE /reservations/{id}`: Cancel a reservation.
 </details>
-### Administrator (Staff) Controls
+
+<details>
+<summary>Administrator (Staff) Controls</summary>
 
 #### View Orders
 - **As an** administrator,
@@ -79,6 +81,7 @@ The Bistro Application is a comprehensive software solution designed to manage f
 
 **API Endpoint:**
 - `PUT /orders/{id}/status`: Update the status of an order to settled or unsettled.
+</details>
 
 ## Backend Setup
 
