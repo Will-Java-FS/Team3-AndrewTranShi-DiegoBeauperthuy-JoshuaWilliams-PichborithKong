@@ -1,152 +1,170 @@
 # Bistro Management App
 
-## Project Overview
+## Project Description
 
-The Bistro Management Application is a robust software solution tailored to efficiently manage various aspects of a bistro, including food items, orders, reservations, dining tables, and user roles. The application employs role-based access control, ensuring that user actions are aligned with their roles—customers and staff members have distinct permissions. With the implementation of JSON Web Tokens (JWT) for authentication, the app secures sensitive operations, allowing customers to place orders and make reservations while enabling staff to manage data pertinent to their responsibilities.
+The Bistro Management Application is a comprehensive software solution designed to manage various aspects of a bistro, including food, orders, reservations, dining tables, and users. It features role-based functionality, ensuring that available actions depend on the user's role. With JSON Web Tokens (JWT) for authentication, the app secures sensitive operations, granting permissions based on the user’s role. Customers can log in to place orders and make reservations, while staff members can access and manage data relevant to their tasks.
 
-## Technology Stack
+## Tech Used
 
-- **Frontend:**
-  - **ReactJS** - For building a dynamic and interactive user interface.
-
-- **Backend:**
-  - **Spring**
-  - **JWT (JSON Web Tokens)** - For securing endpoints and managing user sessions.
+- **ReactJS:** For building a dynamic and interactive user interface.
+- **Node.js/Express:** For backend API and authentication.
+- **JWT (JSON Web Tokens):** For securing endpoints and managing user sessions.
 
 ## Database Design
 
-The application's database is designed to reflect the different entities and their relationships. Here's the ERD representing the structure:
-
 ![ERD](./BistroManagementApp-EDR.png)
+Steps for setting up a local database can be found in our wiki: [Creating and Populating Database Tables](https://github.com/Will-Java-FS/Team3-AndrewTranShi-DiegoBeauperthuy-JoshuaWilliams-PichborithKong/wiki/Creating-and-Populating-Database-Tables)
 
 ## User Stories and API Endpoints
 
-### User Authentication
+### User Login
 
-- **Customer Login**
+<details>
+<summary>For Customers</summary>
 
-  **User Story:**
-  - **As a** customer,
-  - **I want** to log in to the application,
-  - **So that** I can access and manage my orders and reservations.
+- **As a** customer,
+- **I want** to log in to the application,
+- **So that** I can access and manage my orders and reservations.
 
-  **API Endpoint:**
-  - `POST /login`: Authenticates the customer and provides a JWT.
+**API Endpoint:**
+- `POST /login`: Authenticates a customer and provides a JWT.
 
-- **Staff Login**
+</details>
 
-  **User Story:**
-  - **As a** staff member,
-  - **I want** to log in to the application,
-  - **So that** I can access and manage orders, and update menu items.
+<details>
+<summary>For Staff</summary>
 
-  **API Endpoint:**
-  - `POST /login`: Authenticates the staff member and provides a JWT.
+- **As a** staff member,
+- **I want** to log in to the application,
+- **So that** I can access and manage orders, and update menu items.
+
+**API Endpoint:**
+- `POST /login`: Authenticates a staff member and provides a JWT.
+
+</details>
 
 ### Customer Operations
 
-- **View Menu**
+<details>
+<summary>View Menu</summary>
 
-  **User Story:**
-  - **As a** user,
-  - **I want** to view the menu,
-  - **So that** I can see the available dishes and make informed choices.
+- **As a** user,
+- **I want** to view the menu,
+- **So that** I can see the available dishes and make informed choices.
 
-  **API Endpoint:**
-  - `GET /menu`: Retrieves all menu items.
+**API Endpoint:**
+- `GET /menu`: Retrieves all menu items.
 
-- **Order from Menu**
+</details>
 
-  **User Story:**
-  - **As a** user,
-  - **I want** to order from the menu,
-  - **So that** I can enjoy my selected dishes.
+<details>
+<summary>Order from Menu</summary>
 
-  **API Endpoint:**
-  - `POST /orders`: Places a new order.
+- **As a** user,
+- **I want** to order from the menu,
+- **So that** I can enjoy my selected dishes.
 
-- **Edit My Order**
+**API Endpoint:**
+- `POST /orders`: Places a new order.
 
-  **User Story:**
-  - **As a** user,
-  - **I want** to edit my order,
-  - **So that** I can make changes before it is prepared.
+</details>
 
-  **API Endpoint:**
-  - `PUT /orders/{id}`: Updates an existing order.
+<details>
+<summary>Edit My Order</summary>
 
-- **Reserve/Cancel a Table**
+- **As a** user,
+- **I want** to edit my order,
+- **So that** I can make changes before it is prepared.
 
-  **User Story:**
-  - **As a** user,
-  - **I want** to reserve or cancel a table,
-  - **So that** I can ensure a table is available when I arrive or cancel if my plans change.
+**API Endpoint:**
+- `PUT /orders/{id}`: Updates an existing order.
 
-  **API Endpoints:**
-  - `POST /reservations`: Makes a new reservation.
-  - `DELETE /reservations/{id}`: Cancels a reservation.
+</details>
+
+<details>
+<summary>Reserve/Cancel a Table</summary>
+
+- **As a** user,
+- **I want** to reserve or cancel a table,
+- **So that** I can ensure a table is available when I arrive or cancel if my plans change.
+
+**API Endpoints:**
+- `POST /reservations`: Makes a new reservation.
+- `DELETE /reservations/{id}`: Cancels a reservation.
+
+</details>
 
 ### Administrator (Staff) Controls
 
-- **View Orders**
+<details>
+<summary>View Orders</summary>
 
-  **User Story:**
-  - **As an** administrator,
-  - **I want** to view all orders,
-  - **So that** I can oversee the order process and ensure everything is running smoothly.
+- **As an** administrator,
+- **I want** to view all orders,
+- **So that** I can oversee the order process and ensure everything is running smoothly.
 
-  **API Endpoint:**
-  - `GET /orders`: Retrieves all current orders.
+**API Endpoint:**
+- `GET /orders`: Retrieves all current orders.
 
-- **Add or Edit Menu Item**
+</details>
 
-  **User Story:**
-  - **As an** administrator,
-  - **I want** to add or edit a menu food item,
-  - **So that** I can keep the menu up-to-date with new dishes or changes to existing ones.
+<details>
+<summary>Add or Edit Menu Food Item</summary>
 
-  **API Endpoints:**
-  - `POST /menu`: Adds a new food item to the menu.
-  - `PUT /menu/{id}`: Updates an existing food item on the menu.
+- **As an** administrator,
+- **I want** to add or edit a menu food item,
+- **So that** I can keep the menu up-to-date with new dishes or changes to existing ones.
 
-- **Cancel or Delete Orders**
+**API Endpoints:**
+- `POST /menu`: Adds a new food item to the menu.
+- `PUT /menu/{id}`: Updates an existing food item on the menu.
 
-  **User Story:**
-  - **As an** administrator,
-  - **I want** to cancel or delete orders,
-  - **So that** I can manage order changes and handle issues.
+</details>
 
-  **API Endpoint:**
-  - `DELETE /orders/{id}`: Cancels or deletes an order.
+<details>
+<summary>Cancel or Delete Orders</summary>
 
-- **Change Order Status**
+- **As an** administrator,
+- **I want** to cancel or delete orders,
+- **So that** I can manage order changes and handle issues.
 
-  **User Story:**
-  - **As an** administrator,
-  - **I want** to change the status of orders to settled or unsettled,
-  - **So that** I can track which orders have been paid for and which are still outstanding.
+**API Endpoint:**
+- `DELETE /orders/{id}`: Cancels or deletes an order.
 
-  **API Endpoint:**
-  - `PUT /orders/{id}/status`: Updates the status of an order to settled or unsettled.
+</details>
+
+<details>
+<summary>Change Order Status to Settled or Unsettled</summary>
+
+- **As an** administrator,
+- **I want** to change the status of orders to settled or unsettled,
+- **So that** I can track which orders have been paid for and which are still outstanding.
+
+**API Endpoint:**
+- `PUT /orders/{id}/status`: Updates the status of an order to settled or unsettled.
+
+</details>
 
 ## Backend Setup
 
-*Details on setting up the backend will be provided here.*
+*Details on the backend setup will be added here.*
 
 ## Frontend Setup
 
-*Details on setting up the frontend will be provided here.*
+*Details on the frontend setup will be added here.*
 
 ## Routes
 
-### Customer Routes
+### Customers
 
 *Details on customer-specific routes will be added here.*
 
-### Staff Routes
+### Staff
 
 *Details on staff-specific routes will be added here.*
 
-## Testing
+## Tests
 
-*Details on testing strategies, tools, and coverage will be provided here.*
+*Details on testing strategies and coverage will be added here.*
+
+---
