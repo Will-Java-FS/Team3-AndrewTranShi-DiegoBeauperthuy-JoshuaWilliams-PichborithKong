@@ -9,8 +9,8 @@ The Bistro Application is a comprehensive software solution designed to manage f
 - **ReactJS:** For building the dynamic and interactive user interface.
 
 ## User Stories and API Endpoints
-
-### Customer Operations
+<details>
+<summary>### Customer Operations</summary>
 
 #### View Menu
 - **As a** user,
@@ -44,7 +44,7 @@ The Bistro Application is a comprehensive software solution designed to manage f
 **API Endpoints:**
 - `POST /reservations`: Make a new reservation.
 - `DELETE /reservations/{id}`: Cancel a reservation.
-
+</details>
 ### Administrator (Staff) Controls
 
 #### View Orders
