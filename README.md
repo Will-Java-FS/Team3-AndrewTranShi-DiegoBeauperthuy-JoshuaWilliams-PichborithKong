@@ -10,6 +10,9 @@ The Bistro Application is a comprehensive software solution designed to manage f
 - **Node.js/Express:** For backend API and authentication.
 - **JWT (JSON Web Tokens):** For securing endpoints and managing user sessions.
 
+## Database
+![My Logo](./BistroManagementApp-EDR.png)
+
 ## User Stories and API Endpoints
 
 ### User Login
