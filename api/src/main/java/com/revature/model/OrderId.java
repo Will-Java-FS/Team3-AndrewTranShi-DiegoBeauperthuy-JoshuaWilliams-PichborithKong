@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// since we have a composite primary key (user_id, menu_id),
+// we need an OrderId class to represent this composite key:
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
