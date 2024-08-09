@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.exception.ResourceNotFoundException;
 import com.revature.model.User;
 import com.revature.service.UserService;
 
@@ -44,14 +45,16 @@ public class UserController {
     // Get user by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
+        User user = userService.getUserById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
         return ResponseEntity.ok(user);
     }
 
     // Update user by ID
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-        User updatedUser = userService.updateUser(id, userDetails);
+        User updatedUser = userService.updateUser(id, userDetails)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
         return ResponseEntity.ok(updatedUser);
     }
 
