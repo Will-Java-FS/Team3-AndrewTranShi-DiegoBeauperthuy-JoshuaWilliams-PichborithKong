@@ -2,6 +2,8 @@ package com.revature.model;
 
 import java.time.LocalDateTime;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,15 +15,14 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @ToString
-@Setter
 @EqualsAndHashCode
 @Getter
+@Setter
 @Entity
 @Table(name = "users")
-@Data // Generates getters, setters, toString, equals, and hashCode methods
-@NoArgsConstructor // Generates a no-argument constructor
-@AllArgsConstructor // Generates a constructor with 1 parameter for each field
-@Builder // Generates the builder pattern for the entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
     @Id
@@ -42,6 +43,11 @@ public class User {
 
     @Column(nullable = false, name = "update_at")
     private LocalDateTime updateAt = LocalDateTime.now();
+
+    public void setPassword(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
+    }
 
     @PrePersist
     protected void onCreate() {
