@@ -1,7 +1,6 @@
 package com.revature.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,29 +45,17 @@ public class UserController {
     // Get user by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-<<<<<<< HEAD
-        Optional<User> user = userService.getUserById(id);
-        return user.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-=======
         User user = userService.getUserById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
         return ResponseEntity.ok(user);
->>>>>>> e101f76c3df3ab47589f67bb6088b05fa7419b2f
     }
 
     // Update user by ID
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-<<<<<<< HEAD
-        Optional<User> updatedUser = userService.updateUser(id, userDetails);
-        return updatedUser.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-=======
         User updatedUser = userService.updateUser(id, userDetails)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
         return ResponseEntity.ok(updatedUser);
->>>>>>> e101f76c3df3ab47589f67bb6088b05fa7419b2f
     }
 
     // Delete user by ID
