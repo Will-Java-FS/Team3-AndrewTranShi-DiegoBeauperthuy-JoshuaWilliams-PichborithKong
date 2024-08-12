@@ -1,8 +1,9 @@
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS menu;
-DROP TABLE IF EXISTS users;
+-- Drop tables in the correct order
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS menu CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
-
+-- Create tables again
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
@@ -16,7 +17,7 @@ CREATE TABLE menu (
     menu_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE,
     type VARCHAR(100),
-    price NUMERIC(3, 2),
+    price NUMERIC(5, 2),
     description VARCHAR(255),
     create_at TIMESTAMP DEFAULT NOW(),
     update_at TIMESTAMP DEFAULT NOW()
