@@ -1,3 +1,6 @@
+-- This will set the schema to use
+SET search_path TO project1;
+
 -- Drop tables in the correct order
 DROP TABLE IF EXISTS orders CASCADE;
 DROP TABLE IF EXISTS menu CASCADE;
@@ -30,3 +33,5 @@ CREATE TABLE orders (
     update_at TIMESTAMP DEFAULT NOW(),
     UNIQUE (user_id, menu_id)
 );
+
+
