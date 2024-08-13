@@ -3,7 +3,8 @@ package com.revature.controller;
 import com.revature.model.Order;
 import com.revature.model.OrderId;
 import com.revature.model.OrderDetails;
-import com.revature.service.OrderService;
+import com.revature.model.*;
+import com.revature.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,14 @@ import java.util.Optional;
 public class OrderController {
 
     private final OrderService orderService;
+    private final UserService userService;
+    private final MenuService menuService;
 
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, UserService userService, MenuService menuService) {
         this.orderService = orderService;
+        this.userService = userService;
+        this.menuService = menuService;
     }
 
     @GetMapping
@@ -31,9 +36,6 @@ public class OrderController {
     @GetMapping("/{userId}/{menuId}")
     public ResponseEntity<OrderDetails> getOrderById(@PathVariable Long userId, @PathVariable Long menuId) {
         try {
-            if (userId <= 0 || menuId <= 0) {
-                return ResponseEntity.badRequest().build(); // 400
-            }
             OrderId orderId = new OrderId(userId, menuId);
             Optional<Order> order = orderService.findById(orderId);
             return order.map(o -> ResponseEntity.ok(new OrderDetails(o))) // 200
@@ -45,17 +47,25 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        Order savedOrder = orderService.save(order);
-        return ResponseEntity.ok(savedOrder);
+    public ResponseEntity<OrderDetails> createOrder(@RequestBody NewOrder newOrder) {
+        try {
+            Optional<User> user = userService.findById(newOrder.user_id);
+            Optional<Menu> menu = menuService.findById(newOrder.menu_id);
+            if (user.isEmpty() || menu.isEmpty()) {
+                return ResponseEntity.badRequest().build(); // 400
+            }
+            Order order = new Order(user.get(), menu.get());
+            Order savedOrder = orderService.save(order);
+            return ResponseEntity.ok(new OrderDetails(savedOrder)); // 200
+        } catch (Exception e) {
+            System.out.println("Error occurred while creating order");
+            return ResponseEntity.internalServerError().build(); // 500
+        }
     }
 
     @DeleteMapping("/{userId}/{menuId}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long userId, @PathVariable Long menuId) {
         try {
-            if (userId <= 0 || menuId <= 0) {
-                return ResponseEntity.badRequest().build(); // 400
-            }
             OrderId orderId = new OrderId(userId, menuId);
             Optional<Order> order = orderService.findById(orderId);
             if (order.isEmpty()) {
@@ -66,6 +76,16 @@ public class OrderController {
         } catch (Exception e) {
             System.out.println("Error occurred while deleting order");
             return ResponseEntity.internalServerError().build(); // 500
+        }
+    }
+
+    private static class NewOrder {
+        long user_id;
+        long menu_id;
+
+        public NewOrder(long user_id, long menu_id) {
+            this.menu_id = menu_id;
+            this.user_id = user_id;
         }
     }
 }
