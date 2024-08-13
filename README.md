@@ -163,6 +163,7 @@ Fail:
 - **Customer**, **Staff** and **Admin** will be able to delete orders
 
 **API Endpoint:** `DELETE /api/orders/{userId}/{menuId}`
+</details>
 
 ## Backend Setup
 
