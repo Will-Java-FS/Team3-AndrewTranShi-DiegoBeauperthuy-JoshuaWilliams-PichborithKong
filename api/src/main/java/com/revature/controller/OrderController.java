@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.model.Order;
 import com.revature.model.OrderId;
+import com.revature.model.OrderDetails;
 import com.revature.service.OrderService;
 
 @RestController
@@ -34,12 +35,20 @@ public class OrderController {
         return ResponseEntity.ok(orders);
     }
 
-    @GetMapping("/user/{userId}/menu/{menuId}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Long userId, @PathVariable Long menuId) {
-        OrderId orderId = new OrderId(userId, menuId);
-        Optional<Order> order = orderService.findById(orderId);
-        return order.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    @GetMapping("/{userId}/{menuId}")
+    public ResponseEntity<OrderDetails> getOrderById(@PathVariable Long userId, @PathVariable Long menuId) {
+        try {
+            if (userId <= 0 || menuId <= 0) {
+                return ResponseEntity.badRequest().build(); // 400
+            }
+            OrderId orderId = new OrderId(userId, menuId);
+            Optional<Order> order = orderService.findById(orderId);
+            return order.map(o -> ResponseEntity.ok(new OrderDetails(o))) // 200
+                    .orElseGet(() -> ResponseEntity.notFound().build()); // 404
+        } catch (Exception e) {
+            System.out.println("Error occurred while fetching order");
+            return ResponseEntity.internalServerError().build(); // 500
+        }
     }
 
     @PostMapping
@@ -48,13 +57,22 @@ public class OrderController {
         return ResponseEntity.ok(savedOrder);
     }
 
-    @DeleteMapping("/user/{userId}/menu/{menuId}")
+    @DeleteMapping("/{userId}/{menuId}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long userId, @PathVariable Long menuId) {
-        OrderId orderId = new OrderId(userId, menuId);
-        if (!orderService.findById(orderId).isPresent()) {
-            return ResponseEntity.notFound().build();
+        try {
+            if (userId <= 0 || menuId <= 0) {
+                return ResponseEntity.badRequest().build(); // 400
+            }
+            OrderId orderId = new OrderId(userId, menuId);
+            Optional<Order> order = orderService.findById(orderId);
+            if (order.isEmpty()) {
+                return ResponseEntity.notFound().build(); // 404
+            }
+            orderService.deleteById(orderId);
+            return ResponseEntity.noContent().build(); // 204
+        } catch (Exception e) {
+            System.out.println("Error occurred while deleting order");
+            return ResponseEntity.internalServerError().build(); // 500
         }
-        orderService.deleteById(orderId);
-        return ResponseEntity.noContent().build();
     }
 }
