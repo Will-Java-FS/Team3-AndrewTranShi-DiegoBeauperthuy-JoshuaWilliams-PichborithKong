@@ -42,6 +42,30 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody User loginRequest) {
+        // Check if username or password is empty
+        if (loginRequest.getUsername() == null || loginRequest.getUsername().trim().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Username cannot be empty");
+        }
+
+        if (loginRequest.getPassword() == null || loginRequest.getPassword().trim().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Password cannot be empty");
+        }
+
+        // Authenticate user
+        Optional<User> user = userService.findByUsername(loginRequest.getUsername());
+
+        if (user.isPresent() && userService.checkPassword(loginRequest.getPassword(), user.get().getPassword())) {
+            return ResponseEntity.ok("Login successful");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Invalid username or password");
+        }
+    }
+
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@RequestBody User user) {
         // Check if username or password is empty
