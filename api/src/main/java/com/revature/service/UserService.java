@@ -30,17 +30,29 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    public boolean deleteById(Long userId) {
-        User user = userRepository.findById(userId).orElse(null);
-        if (user != null) {
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public boolean checkPassword(String rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
+
+    public boolean deleteUser(Long userId) {
+        if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId);
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 }
