@@ -35,7 +35,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void deleteById(Long userId) {
-        userRepository.deleteById(userId);
+    public boolean deleteUser(Long userId) {
+        if (userRepository.existsById(userId)) {
+            userRepository.deleteById(userId);
+            return true;
+        } else {
+            return false;
+        }
     }
+
 }
