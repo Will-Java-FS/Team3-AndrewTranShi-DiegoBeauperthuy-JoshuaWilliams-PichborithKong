@@ -7,8 +7,9 @@ The Bistro Management Application is a comprehensive software solution designed 
 ## Tech Used
 
 - **ReactJS:** For building a dynamic and interactive user interface.
-- **Node.js/Express:** For backend API and authentication.
-- **JWT (JSON Web Tokens):** For securing endpoints and managing user sessions.
+- **Spring:** For a scalable server-side application.
+- **PostgreSQL** For optimizing data storage, retrieval, and management.
+- **JWT (JSON Web Tokens):** For securing user authentication, ensuring the privacy and security of user data.
 
 ## Database Design
 
@@ -17,138 +18,181 @@ Steps for setting up a local database can be found in our wiki: [Creating and Po
 
 ## User Stories and API Endpoints
 
-### User Login
+### User Management
 
 <details>
-<summary>For Customers</summary>
+<summary>Register</summary>
 
-- **As a** customer,
-- **I want** to log in to the application,
-- **So that** I can access and manage my orders and reservations.
+- **Customer** will be able to register new user with role "Customer" by default.
+- Only **Admin** will be able to register new user for **Staff** with role "Staff".
 
-**API Endpoint:**
-- `POST /login`: Authenticates a customer and provides a JWT.
+**API Endpoint:** `POST /api/users/register`: Authenticates a customer and provides a JWT.
+
+#### Response
+
+Success:
+```json
+{
+    "userId": 9,
+    "username": "Hillard",
+    "password": "$2a$10$Pi7f5wHtgTASHDmLQkSmHuuf1z6QoMa1pvabhSx8Z5C8Mpqzns4Lq",
+    "role": "customer",
+    "createAt": "2024-08-12T20:03:53.468621",
+    "updateAt": "2024-08-12T20:03:53.468633"
+}
+```
+Fail:
+```json
+{
+    "error": "Username already exists"
+}
+```
 
 </details>
 
 <details>
-<summary>For Staff</summary>
+<summary>Login</summary>
 
-- **As a** staff member,
-- **I want** to log in to the application,
-- **So that** I can access and manage orders, and update menu items.
+- **Customer**, **Staff** and **Admin** will be able to login
 
-**API Endpoint:**
-- `POST /login`: Authenticates a staff member and provides a JWT.
+**API Endpoint:** `POST /api/users/login`: Authenticates a customer and provides a JWT.
 
-</details>
+#### Response
 
-### Customer Operations
-
-<details>
-<summary>View Menu</summary>
-
-- **As a** user,
-- **I want** to view the menu,
-- **So that** I can see the available dishes and make informed choices.
-
-**API Endpoint:**
-- `GET /menu`: Retrieves all menu items.
-
-</details>
-
-<details>
-<summary>Order from Menu</summary>
-
-- **As a** user,
-- **I want** to order from the menu,
-- **So that** I can enjoy my selected dishes.
-
-**API Endpoint:**
-- `POST /orders`: Places a new order.
+Success:
+```json
+{
+    "userId": 9,
+    "username": "Hillard",
+    "password": "$2a$10$Pi7f5wHtgTASHDmLQkSmHuuf1z6QoMa1pvabhSx8Z5C8Mpqzns4Lq",
+    "role": "customer",
+    "createAt": "2024-08-12T20:03:53.468621",
+    "updateAt": "2024-08-12T20:03:53.468633"
+}
+```
+Fail:
+```json
+{
+    "error": "Username or password incorrect"
+}
+```
 
 </details>
 
 <details>
-<summary>Edit My Order</summary>
+<summary>Update User Information</summary>
 
-- **As a** user,
-- **I want** to edit my order,
-- **So that** I can make changes before it is prepared.
+- **Customer**, **Staff** and **Admin** will be able to update their information such as Username and Password
 
-**API Endpoint:**
-- `PUT /orders/{id}`: Updates an existing order.
+**API Endpoint:** `PUT /api/users/{userId}`
 
 </details>
 
 <details>
-<summary>Reserve/Cancel a Table</summary>
+<summary>Delete User</summary>
 
-- **As a** user,
-- **I want** to reserve or cancel a table,
-- **So that** I can ensure a table is available when I arrive or cancel if my plans change.
+- **Customer** will be able to delete their User
+- Only **Admin** will be able to delete any User
 
-**API Endpoints:**
-- `POST /reservations`: Makes a new reservation.
-- `DELETE /reservations/{id}`: Cancels a reservation.
+**API Endpoint:** `DELETE /api/users/{userId}`
 
 </details>
 
-### Administrator (Staff) Controls
+### Menu Management
+
+<details>
+<summary>View Item In Menu</summary>
+
+- **Customer**, **Staff** and **Admin** will be able to view items in Menu
+
+**API Endpoint:** `GET /api/menus` & `GET /api/menus/{menuId}`
+
+</details>
+
+<details>
+<summary>Add new Item to Menu</summary>
+
+- Only **Admin** will be able to add new item to Menu
+
+**API Endpoint:** `POST /api/menus`
+
+</details>
+
+<details>
+<summary>Update Item in Menu</summary>
+
+- Only **Admin** will be able to update item information such name, type, price and description
+
+**API Endpoint:** `PUT /api/menus/{menuId}`
+
+</details>
+
+<details>
+<summary>Delete Item from Menu</summary>
+
+- Only **Admin** will be able to delete item from Menu
+
+**API Endpoint:** `DELETE /api/menus/{menuId}`
+
+</details>
+
+### Orders Management
 
 <details>
 <summary>View Orders</summary>
 
-- **As an** administrator,
-- **I want** to view all orders,
-- **So that** I can oversee the order process and ensure everything is running smoothly.
+- **Customer** will be able to view their orders
+- **Staff** and **Admin** will be able to view all orders
 
-**API Endpoint:**
-- `GET /orders`: Retrieves all current orders.
+**API Endpoint:** `GET /api/orders` & `GET /api/orders/{userId}`
 
 </details>
 
 <details>
-<summary>Add or Edit Menu Food Item</summary>
+<summary>Create Orders</summary>
 
-- **As an** administrator,
-- **I want** to add or edit a menu food item,
-- **So that** I can keep the menu up-to-date with new dishes or changes to existing ones.
+- **Customer**, **Staff** and **Admin** will be able to create orders
 
-**API Endpoints:**
-- `POST /menu`: Adds a new food item to the menu.
-- `PUT /menu/{id}`: Updates an existing food item on the menu.
+**API Endpoint:** `POST /api/orders/{userId}/{menuId}`
 
 </details>
 
 <details>
-<summary>Cancel or Delete Orders</summary>
+<summary>Delete Orders</summary>
 
-- **As an** administrator,
-- **I want** to cancel or delete orders,
-- **So that** I can manage order changes and handle issues.
+- **Customer**, **Staff** and **Admin** will be able to delete orders
 
-**API Endpoint:**
-- `DELETE /orders/{id}`: Cancels or deletes an order.
-
-</details>
-
-<details>
-<summary>Change Order Status to Settled or Unsettled</summary>
-
-- **As an** administrator,
-- **I want** to change the status of orders to settled or unsettled,
-- **So that** I can track which orders have been paid for and which are still outstanding.
-
-**API Endpoint:**
-- `PUT /orders/{id}/status`: Updates the status of an order to settled or unsettled.
-
+**API Endpoint:** `DELETE /api/orders/{userId}/{menuId}`
 </details>
 
 ## Backend Setup
 
-*Details on the backend setup will be added here.*
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Will-Java-FS/Team3-AndrewTranShi-DiegoBeauperthuy-JoshuaWilliams-PichborithKong.git
+```
 
+### 2. Setup the Environment
+- Create database
+- Create `.env` file:
+```bash
+touch .env
+```
+- Configure Database:
+```
+DB_USERNAME=your-db-username
+DB_PASSWORD=your-db-password
+DB_URL=jdbc:postgresql://localhost:5432/your-db-name
+```
+- Install Dependencies:
+```bash
+mvn clean install
+```
+
+### 3. Run the Application
+```bash
+mvn spring-boot:run
+```
 ## Frontend Setup
 
 *Details on the frontend setup will be added here.*
