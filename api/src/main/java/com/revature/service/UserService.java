@@ -47,7 +47,7 @@ public class UserService {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
-    public boolean deleteUser(Long userId) {
+    public boolean deleteUserById(Long userId) {
         if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId);
             return true;

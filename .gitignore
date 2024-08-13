@@ -27,3 +27,4 @@ hs_err_pid*
 replay_pid*
 .env
 api/notes.txt
+.vscode/java-formatter.xml
