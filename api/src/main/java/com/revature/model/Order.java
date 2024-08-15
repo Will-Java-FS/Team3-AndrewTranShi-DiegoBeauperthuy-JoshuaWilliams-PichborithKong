@@ -1,7 +1,11 @@
 package com.revature.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -28,6 +32,11 @@ public class Order {
 
     @Column(name = "update_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updateAt = LocalDateTime.now();
+
+    public Order(User user, Menu menu) {
+        this.user = user;
+        this.menu = menu;
+    }
 
     @PrePersist
     protected void onCreate() {
