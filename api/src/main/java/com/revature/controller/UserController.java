@@ -75,19 +75,6 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<User> loginUser(@RequestBody User user) {
-        String username = user.getUsername();
-        String password = user.getPassword();
-        User existingUser = userService.findByUsername(username);
-
-        if (existingUser == null || !password.equals(existingUser.getPassword())) {
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-        }
-
-        return ResponseEntity.ok(existingUser);
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         if (!userService.findById(id).isPresent()) {
