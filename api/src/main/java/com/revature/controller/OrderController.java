@@ -1,9 +1,12 @@
 package com.revature.controller;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,10 +31,27 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Order>> getAllOrders() {
-        List<Order> orders = orderService.findAll();
-        return ResponseEntity.ok(orders);
+    @GetMapping()
+    public ResponseEntity<List<Map<String, Object>>> getAllOrders() {
+        List<Map<String, Object>> orders = orderService.findAllGroupedByUserNameAndUserId();
+
+        if (orders.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(List.of(Map.of("message", "Orders not found")));
+        } else {
+            return ResponseEntity.ok(orders);
+        }
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Object[]>> getOrdersByUserId(@PathVariable Long userId) {
+        List<Object[]> orders = orderService.findOrdersByUserId(userId);
+
+        if (orders.isEmpty()) {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonList(new Object[]{"User ID not found"}));
+        } else {
+            return ResponseEntity.ok(orders);
+        }
     }
 
     @GetMapping("/user/{userId}/menu/{menuId}")
@@ -57,4 +77,6 @@ public class OrderController {
         orderService.deleteById(orderId);
         return ResponseEntity.noContent().build();
     }
+
+
 }
