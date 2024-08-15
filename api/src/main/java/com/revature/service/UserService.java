@@ -30,12 +30,21 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
+
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    public void deleteById(Long userId) {
-        userRepository.deleteById(userId);
+    public boolean deleteById(Long userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            userRepository.deleteById(userId);
+            return true;
+        }
+        return false;
     }
 }

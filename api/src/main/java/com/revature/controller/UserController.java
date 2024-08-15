@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,10 +42,23 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User savedUser = userService.save(user);
         return ResponseEntity.ok(savedUser);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> loginUser(@RequestBody User user) {
+        String username = user.getUsername();
+        String password = user.getPassword();
+        User existingUser = userService.findByUsername(username);
+
+        if (existingUser == null || !password.equals(existingUser.getPassword())) {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+
+        return ResponseEntity.ok(existingUser);
     }
 
     @PutMapping("/{id}")
@@ -59,7 +73,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
-        boolean deleted = userService.deleteUser(id);
+        boolean deleted = userService.deleteById(id);
         if (deleted) {
             return ResponseEntity.ok("Successfully deleted user");
         } else {
