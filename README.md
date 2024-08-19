@@ -33,18 +33,16 @@ Steps for setting up a local database can be found in our wiki: [Creating and Po
 Success:
 ```json
 {
-    "userId": 9,
+    "token": "$2a$10$Pi7f5wHtgTASHDmLQkSmHuuf1z6QoMa1pvabhSx8Z5C8Mpqzns4Lq",
     "username": "Hillard",
-    "password": "$2a$10$Pi7f5wHtgTASHDmLQkSmHuuf1z6QoMa1pvabhSx8Z5C8Mpqzns4Lq",
-    "role": "customer",
-    "createAt": "2024-08-12T20:03:53.468621",
-    "updateAt": "2024-08-12T20:03:53.468633"
+    "message": "Register successful"
 }
 ```
 Fail:
 ```json
 {
-    "error": "Username already exists"
+    "error": "Username already exists",
+    "code": 409
 }
 ```
 
@@ -62,18 +60,16 @@ Fail:
 Success:
 ```json
 {
-    "userId": 9,
+    "token": "$2a$10$Pi7f5wHtgTASHDmLQkSmHuuf1z6QoMa1pvabhSx8Z5C8Mpqzns4Lq",
     "username": "Hillard",
-    "password": "$2a$10$Pi7f5wHtgTASHDmLQkSmHuuf1z6QoMa1pvabhSx8Z5C8Mpqzns4Lq",
-    "role": "customer",
-    "createAt": "2024-08-12T20:03:53.468621",
-    "updateAt": "2024-08-12T20:03:53.468633"
+    "message": "Login successful"
 }
 ```
 Fail:
 ```json
 {
-    "error": "Username or password incorrect"
+    "error": "Invalid username or password",
+    "code": 401
 }
 ```
 
@@ -183,6 +179,8 @@ touch .env
 DB_USERNAME=your-db-username
 DB_PASSWORD=your-db-password
 DB_URL=jdbc:postgresql://localhost:5432/your-db-name
+PORT=your-port-number
+SECRET_KEY=your-secret
 ```
 - Install Dependencies:
 ```bash
