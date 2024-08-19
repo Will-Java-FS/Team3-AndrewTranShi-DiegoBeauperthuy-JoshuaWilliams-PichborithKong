@@ -30,3 +30,5 @@ api/notes.txt
 .vscode/java-formatter.xml
 .idea
 .vscode
+
+node_modules
