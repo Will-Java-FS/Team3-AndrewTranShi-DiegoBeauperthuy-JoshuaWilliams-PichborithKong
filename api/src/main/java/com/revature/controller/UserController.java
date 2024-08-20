@@ -70,6 +70,7 @@ public class UserController {
             String token = jwtService.generateToken(user.get());
             AuthResponse response = new AuthResponse(token,
                                                      user.get().getUsername(),
+                                                     user.get().getRole().name(),
                                                      "Login successful");
             return ResponseEntity.ok(response);
         } else {
@@ -104,6 +105,7 @@ public class UserController {
         String token = jwtService.generateToken(savedUser);
         AuthResponse response = new AuthResponse(token,
                                                  savedUser.getUsername(),
+                                                 savedUser.getRole().name(),
                                                  "Register successful");
         return ResponseEntity.ok(response);
     }
