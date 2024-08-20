@@ -21,6 +21,7 @@ CREATE TABLE menu (
     type VARCHAR(100),
     price NUMERIC(5, 2),
     description VARCHAR(255),
+    image_url VARCHAR(255),
     create_at TIMESTAMP DEFAULT NOW(),
     update_at TIMESTAMP DEFAULT NOW()
 );
