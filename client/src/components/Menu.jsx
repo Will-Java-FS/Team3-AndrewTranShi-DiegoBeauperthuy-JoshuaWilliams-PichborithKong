@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate} from 'react-router-dom';
 
 export default function Menu() {
     const [menuItems, setMenuItems] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
+    const navigate = useNavigate();
 
 
     function getItemsFromAPI() {
@@ -16,10 +18,6 @@ export default function Menu() {
             console.error('Error fetching data:', error);
         });
     }
-
-    useEffect(() => {
-        getItemsFromAPI();
-    }, []);
 
     const groupItemsByType = (items) => {
         return items.reduce((acc, item) => {
@@ -41,20 +39,36 @@ export default function Menu() {
         });
     };
 
-    const orderCurrentItemsSelected = () => {
-        selectedItems.forEach(async (item) => {
-            try {
-                const response = await axios.post('http://localhost:8080/api/orders', {
+    const orderCurrentItemsSelected = async () => {
+        if (selectedItems.length == 0) {
+            alert('No items selected');
+        }
+        else {
+
+            const requests = selectedItems.map(item => 
+                axios.post('http://localhost:8080/api/orders', {
                     "user_id": 8,  // TODO Replace with user Id
                     "menu_id": item.menuId
-                });
-                console.log('Creating order response: ', response.data);
+                })
+            );
+    
+            try {
+                const responses = await Promise.all(requests);
+                responses.forEach(response => console.log('Creating order response: ', response.data));
+                navigate('/myorder');
             } catch (e) {
                 console.error("Error in post request", e);
             }
-        })
-        
+        }
     }
+
+    useEffect(() => {
+        getItemsFromAPI();
+    }, []);
+
+    useEffect(() => {
+        console.log('Selected items:', selectedItems);
+    }, [selectedItems]);
 
     const groupedItems = groupItemsByType(menuItems);
 
@@ -66,10 +80,11 @@ export default function Menu() {
                     <div key={index} className="mb-8">
                         <h2 className="text-center mb-4 text-3xl">{type}</h2>
                         <div className="flex flex-wrap justify-center">
-                            {groupedItems[type].map((item, idx) => (
+                            {groupedItems[type].map((item, i) => (
                                 <div
-                                className={`bg-white text-black rounded-lg p-4 shadow-md m-1 w-64 cursor-pointer ${selectedItems.includes(item) ? 'bg-blue-200' : ''}`}
-                                key={idx}
+                                className='bg-white text-black rounded-lg shadow-md m-1 w-48 cursor-pointer'
+                                style={{ background: selectedItems.includes(item) ? 'lightgreen' : 'white'}}
+                                key={i}
                                 onClick={() => handleItemClick(item)}
                                 >
                                 <div className="w-full h-32">
