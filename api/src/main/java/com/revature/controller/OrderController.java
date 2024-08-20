@@ -114,5 +114,20 @@ public class OrderController {
         }
     }
 
+    @DeleteMapping("/{userId}/checkout")
+    public ResponseEntity<String> checkout(@PathVariable Long userId) {
+        try {
+            Optional<User> user = userService.findById(userId);
 
+            if (user.isPresent()) {
+                orderService.deleteByUserId(userId);
+                return ResponseEntity.ok("Thank you for using our service");
+            }
+
+            return new ResponseEntity<>( "User not found", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            System.out.println("Error occurred while deleting order");
+            return ResponseEntity.internalServerError().body("Check out fail"); // 500
+        }
+    }
 }
