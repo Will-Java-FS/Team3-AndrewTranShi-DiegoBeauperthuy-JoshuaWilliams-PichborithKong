@@ -5,19 +5,22 @@ import { useNavigate } from "react-router-dom";
 export default function Menu() {
 	const [menuItems, setMenuItems] = useState([]);
 	const [selectedItems, setSelectedItems] = useState([]);
+	const [error, setError] = useState(null); // Add error state
 	const navigate = useNavigate();
 
-	function getItemsFromAPI() {
+	const getItemsFromAPI = () => {
 		axios
 			.get("http://localhost:8080/api/menus")
 			.then((response) => {
 				console.log("Getting menu items: ", response.data);
 				setMenuItems(response.data);
+				setError(null); // Clear error on successful fetch
 			})
 			.catch((error) => {
 				console.error("Error fetching data:", error);
+				setError("Failed to fetch menu items. Please try again later."); // Set error message
 			});
-	}
+	};
 
 	const groupItemsByType = (items) => {
 		return items.reduce((acc, item) => {
@@ -73,53 +76,59 @@ export default function Menu() {
 	const groupedItems = groupItemsByType(menuItems);
 
 	return (
-		<div className="w-full min-h-screen">
-			<div className="w-full flex flex-col items-center p-4">
-				<h1 className="text-4xl font-bold mb-6">Menu</h1>
-				<div className="w-full max-w-4xl">
-					{Object.keys(groupedItems).map((type, index) => (
-						<div key={index} className="mb-8">
-							<h2 className="text-center mb-4 text-2xl font-semibold">
-								{type}
-							</h2>
-							<div className="flex flex-wrap justify-center">
-								{groupedItems[type].map((item, i) => (
-									<div
-										className="bg-white text-black rounded-lg shadow-md m-2 w-60 cursor-pointer"
-										style={{
-											background: selectedItems.includes(item)
-												? "lightgreen"
-												: "white"
-										}}
-										key={i}
-										onClick={() => handleItemClick(item)}>
-										<div className="w-full h-32">
-											<img
-												src={item.imageUrl}
-												alt={item.name}
-												className="w-full h-full object-cover"
-											/>
-										</div>
-										<div className="p-4">
-											<h2 className="text-xl font-bold">{item.name}</h2>
-											<ul className="text-left text-sm">
-												<li>{item.description}</li>
-												<li>$ {item.price}</li>
-											</ul>
-										</div>
-									</div>
-								))}
-							</div>
-						</div>
-					))}
+		<div className="w-full min-h-screen flex flex-col items-center justify-center p-4">
+			{error ? (
+				<div className="text-center p-4 bg-red-100 text-red-700 border border-red-300 rounded-md shadow-sm">
+					{error}
 				</div>
-				<button
-					type="button"
-					className="bg-green-700 text-white p-3 rounded-lg mt-6"
-					onClick={orderCurrentItemsSelected}>
-					Order Selected Items
-				</button>
-			</div>
+			) : (
+				<>
+					<h1 className="text-4xl font-bold mb-6">Menu</h1>
+					<div className="w-full max-w-4xl">
+						{Object.keys(groupedItems).map((type, index) => (
+							<div key={index} className="mb-8">
+								<h2 className="text-center mb-4 text-2xl font-semibold">
+									{type}
+								</h2>
+								<div className="flex flex-wrap justify-center">
+									{groupedItems[type].map((item, i) => (
+										<div
+											className="bg-white text-black rounded-lg shadow-md m-2 w-60 cursor-pointer"
+											style={{
+												background: selectedItems.includes(item)
+													? "lightgreen"
+													: "white"
+											}}
+											key={i}
+											onClick={() => handleItemClick(item)}>
+											<div className="w-full h-32">
+												<img
+													src={item.imageUrl}
+													alt={item.name}
+													className="w-full h-full object-cover"
+												/>
+											</div>
+											<div className="p-4">
+												<h2 className="text-xl font-bold">{item.name}</h2>
+												<ul className="text-left text-sm">
+													<li>{item.description}</li>
+													<li>$ {item.price}</li>
+												</ul>
+											</div>
+										</div>
+									))}
+								</div>
+							</div>
+						))}
+					</div>
+					<button
+						type="button"
+						className="bg-green-700 text-white p-3 rounded-lg mt-6"
+						onClick={orderCurrentItemsSelected}>
+						Order Selected Items
+					</button>
+				</>
+			)}
 		</div>
 	);
 }

@@ -46,69 +46,86 @@ const CreateMenuItem = () => {
 		}
 	};
 
+	const formStyle = {
+		maxWidth: "600px",
+		margin: "0 auto",
+		padding: "20px",
+		border: "1px solid #ccc",
+		borderRadius: "8px",
+		boxShadow: "0 0 10px rgba(0,0,0,0.1)"
+	};
+
 	return (
-		<div>
-			<h1>Create Menu Item</h1>
-			<form onSubmit={handleSubmit}>
-				<label htmlFor="name">Name:</label>
-				<input
-					type="text"
-					id="name"
-					name="name"
-					value={formData.name}
-					onChange={handleChange}
-					required
-				/>
-				<br />
-				<br />
+		<div
+			style={{
+				display: "flex",
+				justifyContent: "center",
+				alignItems: "center",
+				height: "100vh"
+			}}>
+			<div style={formStyle}>
+				<h1>Create Menu Item</h1>
+				<form onSubmit={handleSubmit}>
+					<label htmlFor="name">Name:</label>
+					<input
+						type="text"
+						id="name"
+						name="name"
+						value={formData.name}
+						onChange={handleChange}
+						required
+					/>
+					<br />
+					<br />
 
-				<label htmlFor="type">Type:</label>
-				<input
-					type="text"
-					id="type"
-					name="type"
-					value={formData.type}
-					onChange={handleChange}
-				/>
-				<br />
-				<br />
+					<label htmlFor="type">Type:</label>
+					<input
+						type="text"
+						id="type"
+						name="type"
+						value={formData.type}
+						onChange={handleChange}
+					/>
+					<br />
+					<br />
 
-				<label htmlFor="price">Price:</label>
-				<input
-					type="number"
-					id="price"
-					name="price"
-					step="0.01"
-					value={formData.price}
-					onChange={handleChange}
-					required
-				/>
-				<br />
-				<br />
+					<label htmlFor="price">Price:</label>
+					<input
+						type="number"
+						id="price"
+						name="price"
+						step="0.01"
+						value={formData.price}
+						onChange={handleChange}
+						required
+					/>
+					<br />
+					<br />
 
-				<label htmlFor="description">Description:</label>
-				<textarea
-					id="description"
-					name="description"
-					value={formData.description}
-					onChange={handleChange}
-				/>
-				<br />
-				<br />
+					<label htmlFor="description">Description:</label>
+					<textarea
+						id="description"
+						name="description"
+						value={formData.description}
+						onChange={handleChange}
+					/>
+					<br />
+					<br />
 
-				<label htmlFor="imageUrl">Image URL:</label>
-				<input
-					type="text"
-					id="imageUrl"
-					name="imageUrl"
-					value={formData.imageUrl}
-					onChange={handleChange}
-				/>
-				<br />
-				<br />
+					<label htmlFor="imageUrl">Image URL:</label>
+					<input
+						type="text"
+						id="imageUrl"
+						name="imageUrl"
+						value={formData.imageUrl}
+						onChange={handleChange}
+					/>
+					<br />
+					<br />
 
-				<button type="submit">Create Menu Item</button>
-			</form>
+					<button type="submit">Create Menu Item</button>
+				</form>
+			</div>
 		</div>
 	);
 };
