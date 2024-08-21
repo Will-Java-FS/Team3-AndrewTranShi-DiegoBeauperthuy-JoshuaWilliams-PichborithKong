@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import CreateMenuItem from "./components/CreateMenuItem";
@@ -13,33 +13,44 @@ import Menu from "./Pages/Menu";
 import Dashboard from "./Pages/Dashboard";
 import EditUser from "./Pages/EditUser";
 import EditMenuItem from "./components/EditMenuItem";
-import { AuthContext } from "./Util/AuthContext";
+import { AuthProvider, useAuth } from "./Util/AuthContext.jsx"; // Import AuthProvider
 
-const App = () => {
-	const { isLoggedIn } = useContext(AuthContext);
+const AppRoutes = () => {
+	const { auth } = useAuth(); // This should work if within AuthProvider
 
 	return (
-		<BrowserRouter>
-			<div className="w-full mx-auto min-h-screen">
-				<Navbar />
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/edit-user/:userId" element={<EditUser />} />
-					<Route path="/edit-menu-item/:itemId" element={<EditMenuItem />} />
-					<Route path="/menu" element={<Menu />} />
-					<Route path="/myOrder" element={<Order />} />
-					<Route path="/dashboard" element={<Dashboard />} />
-					<Route
-						path="/add-item"
-						element={isLoggedIn ? <CreateMenuItem /> : <UserLogin />}
-					/>
-					<Route path="/login" element={<UserLogin />} />
-					<Route path="/aboutus" element={<AboutUs />} />
-					<Route path="/register" element={<UserRegister />} />
-				</Routes>
-				<Footer />
-			</div>
-		</BrowserRouter>
+		<Routes>
+			<Route path="/" element={<Home />} />
+			<Route path="/edit-user/:userId" element={<EditUser />} />
+			<Route path="/edit-menu-item/:itemId" element={<EditMenuItem />} />
+			<Route path="/menu" element={<Menu />} />
+			<Route path="/myOrder" element={<Order />} />
+			<Route
+				path="/dashboard"
+				element={auth.token ? <Dashboard /> : <UserLogin />}
+			/>
+			<Route
+				path="/add-item"
+				element={auth.token ? <CreateMenuItem /> : <UserLogin />}
+			/>
+			<Route path="/login" element={<UserLogin />} />
+			<Route path="/aboutus" element={<AboutUs />} />
+			<Route path="/register" element={<UserRegister />} />
+		</Routes>
+	);
+};
+
+const App = () => {
+	return (
+		<AuthProvider>
+			<BrowserRouter>
+				<div className="w-full mx-auto min-h-screen">
+					<Navbar />
+					<AppRoutes />
+					<Footer />
+				</div>
+			</BrowserRouter>
+		</AuthProvider>
 	);
 };
 

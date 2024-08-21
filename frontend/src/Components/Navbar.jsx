@@ -1,14 +1,16 @@
+// src/components/Navbar.jsx
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../Util/AuthContext"; // Adjust path as necessary
+import { useAuth } from "../Util/AuthContext"; // Import useAuth hook
 import Button from "../pages/Button";
 
 const Navbar = () => {
-	const { isLoggedIn, logout } = useContext(AuthContext); // Get authentication state from context
+	const { auth, logout } = useAuth(); // Use the custom hook to get auth context
 	const navigate = useNavigate();
+	const isLoggedIn = !!auth.token; // Determine logged-in status from token
 
 	const handleLogout = () => {
-		logout(); // Use context's logout function
+		logout(); // Clear auth context and local storage
 		navigate("/"); // Redirect to the home page
 	};
 

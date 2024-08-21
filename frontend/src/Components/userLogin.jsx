@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Util/AuthContext.jsx";
 
 function UserLogin() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [message, setMessage] = useState(null);
 	const navigate = useNavigate();
+	const { login } = useAuth();
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
@@ -20,11 +22,9 @@ function UserLogin() {
 				username,
 				password
 			});
-
 			const { token, role } = response.data; // Ensure backend returns these fields
-			localStorage.setItem("token", token);
-			localStorage.setItem("role", role);
 
+			login(token, role);
 			setMessage("Login successful!");
 
 			if (role === "ADMIN") {
