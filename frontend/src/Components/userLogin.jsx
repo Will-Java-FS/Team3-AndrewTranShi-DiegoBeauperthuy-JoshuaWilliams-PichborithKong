@@ -132,10 +132,10 @@ function UserLogin() {
 						Login
 					</button>
 					<div className="text-sm font-light text-[#6B7280]">
-						Don't have an account yet?{" "}
+						Don&apos;t have an account yet?{" "}
 						<a
 							href="/register"
-							className="font-medium text-[#95C042] hover:underline">
+							className="font-medium text-[#9cc648] hover:underline">
 							Sign Up
 						</a>
 					</div>
