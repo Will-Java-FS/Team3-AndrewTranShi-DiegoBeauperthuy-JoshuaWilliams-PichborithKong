@@ -34,6 +34,9 @@ public class Menu {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @Column(name = "create_at", nullable = false, updatable = false)
     private LocalDateTime createAt;
 

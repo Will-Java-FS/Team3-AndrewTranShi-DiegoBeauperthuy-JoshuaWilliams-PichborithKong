@@ -5,7 +5,14 @@ export default {
     "./index.html"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        brightColor: "#F4511F",
+        backgroundColor: "#b7bca9",
+        lightText: "#959595",
+      },
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+    },
   },
   plugins: [],
 }

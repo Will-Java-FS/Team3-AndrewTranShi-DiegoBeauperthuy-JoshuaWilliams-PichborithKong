@@ -10,7 +10,7 @@ CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role VARCHAR(100) DEFAULT 'customer' NOT NULL,
+    role VARCHAR(100) DEFAULT 'CUSTOMER' NOT NULL,
     create_at TIMESTAMP DEFAULT NOW(),
     update_at TIMESTAMP DEFAULT NOW()
 );
@@ -21,6 +21,7 @@ CREATE TABLE menu (
     type VARCHAR(100),
     price NUMERIC(5, 2),
     description VARCHAR(255),
+    image_url VARCHAR(255),
     create_at TIMESTAMP DEFAULT NOW(),
     update_at TIMESTAMP DEFAULT NOW()
 );
