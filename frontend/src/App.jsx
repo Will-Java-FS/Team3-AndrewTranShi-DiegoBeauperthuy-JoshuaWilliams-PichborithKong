@@ -1,16 +1,16 @@
 import React from "react";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./Pages/Home";
-import Menu from "./Pages/Menu";
-import Order from "./components/Order";
-import Dashboard from "./components/Dashboard";
 import CreateMenuItem from "./components/CreateMenuItem";
+import Dashboard from "./components/Dashboard";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+import Order from "./components/Order";
 import UserLogin from "./components/userLogin";
 import UserRegister from "./components/userRegister";
 import AboutUs from "./Pages/AboutUs";
+import Home from "./Pages/Home";
+import Menu from "./Pages/Menu";
 
 const App = () => {
 	return (
@@ -25,7 +25,6 @@ const App = () => {
 					<Route path="/add-item" element={<CreateMenuItem />} />
 					<Route path="/login" element={<UserLogin />} />
 					<Route path="/aboutus" element={<AboutUs />} />
-
 					<Route path="/register" element={<UserRegister />} />
 				</Routes>
 				<Footer />
