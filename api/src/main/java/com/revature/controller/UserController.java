@@ -1,5 +1,21 @@
 package com.revature.controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.revature.exception.BadRequestException;
 import com.revature.exception.UnauthorizedException;
 import com.revature.exception.UserAlreadyExistsException;
@@ -7,15 +23,9 @@ import com.revature.model.AuthResponse;
 import com.revature.model.User;
 import com.revature.service.JwtService;
 import com.revature.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3001")
 @RequestMapping("/api/users")
 public class UserController {
 
@@ -39,39 +49,39 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.findById(id);
         return user.map(ResponseEntity::ok)
-                   .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> loginUser(
-        @RequestBody User loginRequest) {
+            @RequestBody User loginRequest) {
         // Check if username or password is empty
         if (loginRequest.getUsername() == null || loginRequest.getUsername()
-                                                              .trim()
-                                                              .isEmpty()) {
+                .trim()
+                .isEmpty()) {
 //            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username cannot be empty");
             throw new BadRequestException("Username cannot be empty");
         }
 
         if (loginRequest.getPassword() == null || loginRequest.getPassword()
-                                                              .trim()
-                                                              .isEmpty()) {
+                .trim()
+                .isEmpty()) {
 //            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password cannot be empty");
             throw new BadRequestException("Password cannot be empty");
         }
 
         // Authenticate user
         Optional<User> user = userService.findByUsername(
-            loginRequest.getUsername());
+                loginRequest.getUsername());
 
         if (user.isPresent() && userService.checkPassword(
-            loginRequest.getPassword(), user.get().getPassword())) {
+                loginRequest.getPassword(), user.get().getPassword())) {
 
             String token = jwtService.generateToken(user.get());
             AuthResponse response = new AuthResponse(token,
-                                                     user.get().getUsername(),
-                                                     user.get().getRole().name(),
-                                                     "Login successful");
+                    user.get().getUsername(),
+                    user.get().getRole().name(),
+                    "Login successful");
             return ResponseEntity.ok(response);
         } else {
 //            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
@@ -104,15 +114,15 @@ public class UserController {
         User savedUser = userService.save(user);
         String token = jwtService.generateToken(savedUser);
         AuthResponse response = new AuthResponse(token,
-                                                 savedUser.getUsername(),
-                                                 savedUser.getRole().name(),
-                                                 "Register successful");
+                savedUser.getUsername(),
+                savedUser.getRole().name(),
+                "Register successful");
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id,
-                                           @RequestBody User user) {
+            @RequestBody User user) {
         if (!userService.findById(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }
@@ -128,7 +138,7 @@ public class UserController {
             return ResponseEntity.ok("User deleted successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Error: Cannot find user with ID " + id);
+                    .body("Error: Cannot find user with ID " + id);
         }
     }
 }
