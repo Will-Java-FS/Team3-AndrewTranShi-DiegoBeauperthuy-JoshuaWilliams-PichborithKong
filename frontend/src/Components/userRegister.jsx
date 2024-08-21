@@ -26,7 +26,9 @@ const UserRegister = () => {
 					<>
 						<p>
 							Registration successful! Please{" "}
-							<a href="/login" className="text-green-600 hover:underline">
+							<a
+								href="/login"
+								className="text-emerald-600 text-center hover:underline">
 								login
 							</a>
 							.
@@ -34,29 +36,29 @@ const UserRegister = () => {
 					</>
 				);
 				// Optionally navigate after a brief delay to allow users to see the message
-				setTimeout(() => navigate("/login"), 2000);
+				setTimeout(() => navigate("/login"), 3000);
 			}
 		} catch (error) {
 			setMessage(
 				error.response && error.response.data
 					? error.response.data
-					: "Something went wrong. Please try again later."
+					: "Username already in use"
 			);
 		}
 	};
 
 	return (
 		<div className="min-h-screen flex items-center justify-center">
-			<div className="flex flex-col w-full md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-white rounded-2xl shadow-xl">
+			<div className="w-1/2 max-w-md p-8 md:p-10 bg-white rounded-2xl shadow-xl">
 				<div className="flex flex-col justify-center mx-auto items-center gap-3 pb-4">
 					<img
 						src="./images/bistrologo.png"
 						style={{ width: "150px" }}
 						alt="Logo"
 					/>
-					<h1 className="text-3xl font-bold text-gray-700 my-auto">Register</h1>
+					<h1 className="text-3xl font-bold text-gray-700">Register</h1>
 				</div>
-				<div className="text-sm font-light text-gray-500 pb-8 mx-auto">
+				<div className="text-sm font-light text-gray-500 pb-8 text-center">
 					Create your account
 				</div>
 				<form className="flex flex-col" onSubmit={handleRegister}>
@@ -131,18 +133,20 @@ const UserRegister = () => {
 						</div>
 					</div>
 					{message && (
-						<p className="text-success text-center text-sm mb-4">{message}</p>
+						<p className="text-red-500 text-center text-sm mb-4">{message}</p>
 					)}
-					<button
-						type="submit"
-						className="w-1/2 mx-auto text-white bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-6">
-						Register
-					</button>
-					<div className="text-sm font-light text-gray-500">
+					<div className="flex justify-center">
+						<button
+							type="submit"
+							className="text-white btn bg-emerald-600 hover:bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+							Register
+						</button>
+					</div>
+					<div className="text-sm font-light text-gray-500 mt-4 text-center">
 						Already have an account?{" "}
 						<a
 							href="/login"
-							className="font-medium text-green-600 hover:underline">
+							className="font-medium text-emerald-600 hover:underline">
 							Login
 						</a>
 					</div>

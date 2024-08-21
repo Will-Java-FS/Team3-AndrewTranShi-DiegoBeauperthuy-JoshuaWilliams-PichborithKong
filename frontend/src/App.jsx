@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import CreateMenuItem from "./components/CreateMenuItem";
-import Dashboard from "./components/Dashboard";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Order from "./components/Order";
@@ -11,11 +10,12 @@ import UserRegister from "./components/userRegister";
 import AboutUs from "./Pages/AboutUs";
 import Home from "./Pages/Home";
 import Menu from "./Pages/Menu";
+import Dashboard from "./Pages/Dashboard";
 
 const App = () => {
 	return (
 		<BrowserRouter>
-			<div className="w-full mx-auto min-h-screen bg-gray-100">
+			<div className="w-full mx-auto min-h-screen">
 				<Navbar />
 				<Routes>
 					<Route path="/" element={<Home />} />

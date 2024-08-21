@@ -43,20 +43,20 @@ function UserLogin() {
 
 	return (
 		<div className="min-h-screen flex items-center justify-center">
-			<div className="flex flex-col w-full md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-[#ffffff] rounded-2xl shadow-xl">
+			<div className="w-1/2 max-w-md p-8 md:p-10 bg-white rounded-2xl shadow-xl">
 				<div className="flex flex-col justify-center mx-auto items-center gap-3 pb-4">
 					<img
 						src="./images/bistrologo.png"
 						style={{ width: "150px" }}
 						alt="Logo"
 					/>
-					<h1 className="text-3xl font-bold text-[#4B5563] my-auto">Login</h1>
+					<h1 className="text-3xl font-bold text-gray-700">Login</h1>
 				</div>
 				<form className="flex flex-col" onSubmit={handleLogin}>
 					<div className="pb-2">
 						<label
 							htmlFor="username"
-							className="block mb-2 text-sm font-medium text-[#111827]">
+							className="block mb-2 text-sm font-medium text-gray-800">
 							Username
 						</label>
 						<div className="relative text-gray-400">
@@ -81,7 +81,7 @@ function UserLogin() {
 								name="username"
 								id="username"
 								aria-label="Username"
-								className="pl-12 mb-2 bg-gray-50 text-gray-600 border focus:border-transparent border-gray-300 sm:text-sm rounded-lg ring ring-transparent focus:ring-1 focus:outline-none focus:ring-gray-400 block w-full p-2.5 py-3 px-4"
+								className="pl-12 mb-2 bg-gray-50 text-gray-600 border border-gray-300 rounded-lg ring-transparent focus:ring-1 focus:outline-none focus:ring-gray-400 block w-full p-2.5"
 								placeholder="demo"
 								autoComplete="off"
 								value={username}
@@ -92,7 +92,7 @@ function UserLogin() {
 					<div className="pb-6">
 						<label
 							htmlFor="password"
-							className="block mb-2 text-sm font-medium text-[#111827]">
+							className="block mb-2 text-sm font-medium text-gray-800">
 							Password
 						</label>
 						<div className="relative text-gray-400">
@@ -118,7 +118,7 @@ function UserLogin() {
 								id="password"
 								aria-label="Password"
 								placeholder="••••••••••"
-								className="pl-12 mb-2 bg-gray-50 text-gray-600 border focus:border-transparent border-gray-300 sm:text-sm rounded-lg ring ring-transparent focus:ring-1 focus:outline-none focus:ring-gray-400 block w-full p-2.5 py-3 px-4"
+								className="pl-12 mb-2 bg-gray-50 text-gray-600 border border-gray-300 rounded-lg ring-transparent focus:ring-1 focus:outline-none focus:ring-gray-400 block w-full p-2.5"
 								autoComplete="new-password"
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
@@ -126,16 +126,18 @@ function UserLogin() {
 						</div>
 					</div>
 					{message && <p className="text-red-500 text-sm mb-4">{message}</p>}
-					<button
-						type="submit"
-						className="w-1/2 mx-auto text-white bg-[#B2E27D] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-6">
-						Login
-					</button>
-					<div className="text-sm font-light text-[#6B7280]">
+					<div className="flex justify-center">
+						<button
+							type="submit"
+							className="text-white btn bg-emerald-600 hover:bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+							Sign In
+						</button>
+					</div>
+					<div className="text-sm font-light text-gray-500 mt-4 text-center">
 						Don&apos;t have an account yet?{" "}
 						<a
 							href="/register"
-							className="font-medium text-[#9cc648] hover:underline">
+							className="font-medium text-emerald-600 hover:underline">
 							Sign Up
 						</a>
 					</div>

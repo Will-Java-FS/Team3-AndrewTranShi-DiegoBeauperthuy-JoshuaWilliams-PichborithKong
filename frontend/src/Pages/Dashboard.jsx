@@ -82,6 +82,40 @@ function Dashboard() {
 	if (error) {
 		return <div>Error: {error.message || "An unexpected error occurred."}</div>;
 	}
+	const fetchData = async () => {
+		try {
+			const token = localStorage.getItem("token");
+			console.log("Token:", token); // Debug token
+
+			if (!token) {
+				throw new Error("No token found. Please log in.");
+			}
+
+			const [usersResponse, menusResponse] = await Promise.all([
+				axios.get("/api/users", {
+					headers: { Authorization: `Bearer ${token}` }
+				}),
+				axios.get("/api/menus", {
+					headers: { Authorization: `Bearer ${token}` }
+				})
+			]);
+
+			console.log("Users Response:", usersResponse.data); // Debug users data
+			console.log("Menus Response:", menusResponse.data); // Debug menus data
+
+			setUsers(usersResponse.data);
+			setMenus(menusResponse.data);
+			setLoading(false);
+		} catch (error) {
+			console.error("There was an error fetching the data!", error);
+			if (error.response && error.response.status === 401) {
+				navigate("/login");
+			} else {
+				setError(error);
+			}
+			setLoading(false);
+		}
+	};
 
 	return (
 		<div className="flex flex-col items-center overflow-x-auto">
@@ -162,7 +196,9 @@ function Dashboard() {
 								<td className="py-2 px-4 border-b">{menuItem.description}</td>
 								<td className="py-2 px-4 border-b">{menuItem.type}</td>
 								<td className="py-2 px-4 border-b">
-									${menuItem.price.toFixed(2)}
+									{menuItem.price != null
+										? `$${menuItem.price.toFixed(2)}`
+										: "N/A"}
 								</td>
 								<td className="py-2 px-4 border-b">{menuItem.items}</td>
 								<td className="py-2 px-4 border-b">
