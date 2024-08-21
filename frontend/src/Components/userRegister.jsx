@@ -133,7 +133,7 @@ const UserRegister = () => {
 						</div>
 					</div>
 					{message && (
-						<p className="text-red-500 text-center text-sm mb-4">{message}</p>
+						<p className="text-red-500 text-md text-center mb-4">{message}</p>
 					)}
 					<div className="flex justify-center">
 						<button

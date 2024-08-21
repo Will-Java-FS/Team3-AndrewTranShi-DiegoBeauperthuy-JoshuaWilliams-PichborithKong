@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./CreateMenuItem.css";
-const CreateMenuItem = () => {
+
+const EditMenuItem = () => {
+	const { itemId } = useParams(); // Get menu item ID from URL params
 	const [formData, setFormData] = useState({
 		name: "",
 		description: "",
-		type: "", // Default to an empty string for placeholder
+		type: "",
 		price: "",
 		imageUrl: ""
 	});
 	const [error, setError] = useState("");
+	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const fetchMenuItem = async () => {
+			try {
+				const response = await axios.get(`/api/menus/${itemId}`);
+				setFormData(response.data);
+				setLoading(false);
+			} catch (error) {
+				setError("An error occurred while fetching the menu item.");
+				setLoading(false);
+			}
+		};
+
+		fetchMenuItem();
+	}, [itemId]);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -24,13 +42,13 @@ const CreateMenuItem = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post("/api/menus", {
+			await axios.put(`/api/menus/${itemId}`, {
 				...formData,
-				price: parseFloat(formData.price)
+				price: parseFloat(formData.price) || 0 // Ensure price is a number
 			});
 			navigate("/dashboard");
 		} catch (error) {
-			setError("An error occurred while creating the menu item.");
+			setError("An error occurred while updating the menu item.");
 		}
 	};
 
@@ -38,12 +56,14 @@ const CreateMenuItem = () => {
 		navigate("/dashboard");
 	};
 
+	if (loading) {
+		return <div>Loading...</div>;
+	}
+
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-100 p-0 sm:p-12">
 			<div className="w-full max-w-md px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl">
-				<h1 className="text-2xl font-bold mb-8 text-center">
-					Create Menu Item
-				</h1>
+				<h1 className="text-2xl font-bold mb-8 text-center">Edit Menu Item</h1>
 				<form onSubmit={handleSubmit} noValidate>
 					<div className="relative z-0 w-full mb-5">
 						<input
@@ -142,7 +162,7 @@ const CreateMenuItem = () => {
 					<button
 						type="submit"
 						className="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-orange-500 hover:bg-orange-400 hover:shadow-lg focus:outline-none">
-						Create Menu Item
+						Save Changes
 					</button>
 					<button
 						type="button"
@@ -156,4 +176,4 @@ const CreateMenuItem = () => {
 	);
 };
 
-export default CreateMenuItem;
+export default EditMenuItem;

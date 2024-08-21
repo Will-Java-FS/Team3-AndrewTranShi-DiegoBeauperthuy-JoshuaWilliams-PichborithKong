@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Util/AuthContext"; // Adjust path as necessary
 import Button from "../pages/Button";
 
 const Navbar = () => {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const { isLoggedIn, logout } = useContext(AuthContext); // Get authentication state from context
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		// Check if a token exists in localStorage to determine if the user is logged in
-		const token = localStorage.getItem("token");
-		console.log("Token:", token); // Debugging
-		setIsLoggedIn(!!token);
-	}, []);
-
 	const handleLogout = () => {
-		localStorage.removeItem("token"); // Remove the JWT token from localStorage
-		setIsLoggedIn(false); // Update the state to reflect the logged-out status
+		logout(); // Use context's logout function
 		navigate("/"); // Redirect to the home page
 	};
 

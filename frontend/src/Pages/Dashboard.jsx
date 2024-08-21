@@ -7,7 +7,7 @@ function Dashboard() {
 	const [menus, setMenus] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const navigate = useNavigate(); // Initialize navigate
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -71,6 +71,27 @@ function Dashboard() {
 		}
 	};
 
+	const handleDeleteMenuItem = async (menuId) => {
+		try {
+			const token = localStorage.getItem("token");
+
+			if (!token) {
+				throw new Error("No token found. Please log in.");
+			}
+
+			await axios.delete(`/api/menus/${menuId}`, {
+				headers: {
+					Authorization: `Bearer ${token}`
+				}
+			});
+
+			setMenus(menus.filter((menu) => menu.menuId !== menuId));
+		} catch (error) {
+			console.error("There was an error deleting the menu item!", error);
+			setError(error);
+		}
+	};
+
 	const handleAddItemClick = () => {
 		navigate("/add-item");
 	};
@@ -82,40 +103,6 @@ function Dashboard() {
 	if (error) {
 		return <div>Error: {error.message || "An unexpected error occurred."}</div>;
 	}
-	const fetchData = async () => {
-		try {
-			const token = localStorage.getItem("token");
-			console.log("Token:", token); // Debug token
-
-			if (!token) {
-				throw new Error("No token found. Please log in.");
-			}
-
-			const [usersResponse, menusResponse] = await Promise.all([
-				axios.get("/api/users", {
-					headers: { Authorization: `Bearer ${token}` }
-				}),
-				axios.get("/api/menus", {
-					headers: { Authorization: `Bearer ${token}` }
-				})
-			]);
-
-			console.log("Users Response:", usersResponse.data); // Debug users data
-			console.log("Menus Response:", menusResponse.data); // Debug menus data
-
-			setUsers(usersResponse.data);
-			setMenus(menusResponse.data);
-			setLoading(false);
-		} catch (error) {
-			console.error("There was an error fetching the data!", error);
-			if (error.response && error.response.status === 401) {
-				navigate("/login");
-			} else {
-				setError(error);
-			}
-			setLoading(false);
-		}
-	};
 
 	return (
 		<div className="flex flex-col items-center overflow-x-auto">
@@ -132,8 +119,8 @@ function Dashboard() {
 							<th className="py-2 px-4 border-b text-left">ID</th>
 							<th className="py-2 px-4 border-b text-left">Username</th>
 							<th className="py-2 px-4 border-b text-left">Role</th>
-							<th className="py-2 px-4 border-b text-left">Created At</th>
-							<th className="py-2 px-4 border-b text-left">Updated At</th>
+							{/* <th className="py-2 px-4 border-b text-left">Created At</th>
+							<th className="py-2 px-4 border-b text-left">Updated At</th> */}
 							<th className="py-2 px-4 border-b text-left">Actions</th>
 						</tr>
 					</thead>
@@ -143,14 +130,18 @@ function Dashboard() {
 								<td className="py-2 px-4 border-b">{user.userId}</td>
 								<td className="py-2 px-4 border-b">{user.username}</td>
 								<td className="py-2 px-4 border-b">{user.role}</td>
-								<td className="py-2 px-4 border-b">
+								{/* <td className="py-2 px-4 border-b">
 									{new Date(user.createdAt).toLocaleString()}
 								</td>
 								<td className="py-2 px-4 border-b">
 									{new Date(user.updatedAt).toLocaleString()}
-								</td>
+								</td> */}
 								<td className="py-2 px-4 border-b">
-									<button className="btn btn-sm btn-warning mx-1">Edit</button>
+									<button
+										className="btn btn-sm btn-warning mx-1"
+										onClick={() => navigate(`/edit-user/${user.userId}`)}>
+										Edit
+									</button>
 									<button
 										className="btn btn-sm btn-error mx-1"
 										onClick={() => handleDeleteUser(user.userId)}>
@@ -170,8 +161,6 @@ function Dashboard() {
 				<button
 					className="btn btn-sm bg-success text-white"
 					onClick={handleAddItemClick}>
-					{" "}
-					{/* Use navigate to redirect */}
 					Add Item
 				</button>
 			</div>
@@ -185,7 +174,6 @@ function Dashboard() {
 							<th className="py-2 px-4 border-b text-left">Description</th>
 							<th className="py-2 px-4 border-b text-left">Type</th>
 							<th className="py-2 px-4 border-b text-left">Price</th>
-							<th className="py-2 px-4 border-b text-left">Items Available</th>
 							<th className="py-2 px-4 border-b text-left">Actions</th>
 						</tr>
 					</thead>
@@ -200,10 +188,19 @@ function Dashboard() {
 										? `$${menuItem.price.toFixed(2)}`
 										: "N/A"}
 								</td>
-								<td className="py-2 px-4 border-b">{menuItem.items}</td>
 								<td className="py-2 px-4 border-b">
-									<button className="btn btn-sm btn-warning mx-1">Edit</button>
-									<button className="btn btn-sm btn-error mx-1">Delete</button>
+									<button
+										className="btn btn-sm btn-warning mx-1"
+										onClick={() =>
+											navigate(`/edit-menu-item/${menuItem.menuId}`)
+										}>
+										Edit
+									</button>
+									<button
+										className="btn btn-sm btn-error mx-1"
+										onClick={() => handleDeleteMenuItem(menuItem.menuId)}>
+										Delete
+									</button>
 								</td>
 							</tr>
 						))}
