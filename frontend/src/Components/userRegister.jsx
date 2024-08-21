@@ -46,10 +46,14 @@ const UserRegister = () => {
 	};
 
 	return (
-		<div className="min-h-screen flex items-center justify-center bg-gray-100">
+		<div className="min-h-screen flex items-center justify-center">
 			<div className="flex flex-col w-full md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-white rounded-2xl shadow-xl">
 				<div className="flex flex-col justify-center mx-auto items-center gap-3 pb-4">
-					<img src="./logo.png" style={{ width: "150px" }} alt="Logo" />
+					<img
+						src="./images/bistrologo.png"
+						style={{ width: "150px" }}
+						alt="Logo"
+					/>
 					<h1 className="text-3xl font-bold text-gray-700 my-auto">Register</h1>
 				</div>
 				<div className="text-sm font-light text-gray-500 pb-8 mx-auto">
