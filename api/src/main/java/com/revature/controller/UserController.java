@@ -25,8 +25,9 @@ import com.revature.service.JwtService;
 import com.revature.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3001")
+//@CrossOrigin(origins = "http://localhost:3001")
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "${CLIENT_URL}")
 public class UserController {
 
     private final UserService userService;
