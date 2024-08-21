@@ -20,7 +20,8 @@ import com.revature.service.MenuService;
 
 @RestController
 @RequestMapping("/api/menus")
-@CrossOrigin(origins = "http://localhost:3001")
+//@CrossOrigin(origins = "http://localhost:3001")
+@CrossOrigin(origins = "${CLIENT_URL}")
 public class MenuController {
 
     private final MenuService menuService;
