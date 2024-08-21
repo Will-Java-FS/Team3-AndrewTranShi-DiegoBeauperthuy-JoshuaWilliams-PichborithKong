@@ -43,8 +43,10 @@ export default function Menu() {
 	const orderCurrentItemsSelected = async () => {
 		if (selectedItems.length === 0) {
 			alert("No items selected");
+		} else if (localStorage.getItem("userId") == -1 || localStorage.getItem("userId") == undefined) {
+			navigate('/login');
 		} else {
-			
+
 			try {
 				for (const item of selectedItems) {
 				  const response = await axios.post("http://localhost:8080/api/orders", {
@@ -53,7 +55,7 @@ export default function Menu() {
 				  });
 				  //console.log("Creating order response: ", response.data);
 				}
-				setTimeout(navigate("/myorder"), 100);
+				setTimeout(navigate('/myorder'), 100);
 			  } catch (e) {
 				console.error("Error in post request", e);
 			}
