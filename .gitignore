@@ -294,4 +294,3 @@ dist
 .yarn/install-state.gz
 .pnp.*
 frontend/package-lock.json
-frontend/src/Components/NavBar.jsx
