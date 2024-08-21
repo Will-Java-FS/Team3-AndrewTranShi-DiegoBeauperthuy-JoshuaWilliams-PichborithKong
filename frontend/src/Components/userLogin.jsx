@@ -21,9 +21,11 @@ function UserLogin() {
 				password
 			});
 
-			const { token, role } = response.data; // Ensure backend returns these fields
+			const { token, role, userId } = response.data; // Ensure backend returns these fields
 			localStorage.setItem("token", token);
 			localStorage.setItem("role", role);
+			localStorage.setItem("userId", userId);
+			console.log("here", response.data)
 
 			setMessage("Login successful!");
 

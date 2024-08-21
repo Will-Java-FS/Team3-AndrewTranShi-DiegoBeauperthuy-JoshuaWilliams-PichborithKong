@@ -7,9 +7,9 @@ export default function Order() {
 
 
     const getOrdersFromApi = () => {
-        axios.get('http://localhost:8080/api/orders/user/8') // Update the current user id
+        axios.get(`http://localhost:8080/api/orders/user/${localStorage.getItem("userId")}`)
         .then(response => {
-            console.log('getting user order: ', response.data);
+            //console.log('getting user order: ', response.data);
             setOrders(response.data);
             calculateTotalPrice(response.data);
         })
@@ -29,8 +29,8 @@ export default function Order() {
 
 
     return (<>
-            <h1>My Order</h1><br></br>
-            <div className='flex flex-wrap'>
+            <h1 className="text-5xl text-center m-8">My Order</h1>
+            <div className='flex flex-wrap items-center justify-center'>
                 {orders.length == 0 ? (
                     <p>No Orders found yet</p>
                 ) : (
@@ -51,10 +51,12 @@ export default function Order() {
                     ))
                 )} 
             </div><br></br>
-            <div className='bg-green-700 text-white p-2 rounded'>
-                <h2>Total Price</h2>
-                <p>$ {totalPrice}</p>
-            </div><br></br>
-            <button type='button' className='bg-green-700 text-white p-2 rounded'>Checkout</button>
+            <div className='bg-green-700 text-white p-2 rounded flex flex-col items-center'>
+            <h2>Total Price</h2>
+            <p>$ {totalPrice}</p>
+            </div>
+            <div className="flex items-center justify-center m-4 mb-8">
+            <button type='button' className='bg-green-700 text-white p-4 rounded'>Checkout</button>
+            </div>
         </>)
 }

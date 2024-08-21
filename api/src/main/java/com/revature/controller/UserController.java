@@ -82,6 +82,7 @@ public class UserController {
             AuthResponse response = new AuthResponse(token,
                     user.get().getUsername(),
                     user.get().getRole().name(),
+                    user.get().getUserId(),
                     "Login successful");
             return ResponseEntity.ok(response);
         } else {
@@ -117,6 +118,7 @@ public class UserController {
         AuthResponse response = new AuthResponse(token,
                 savedUser.getUsername(),
                 savedUser.getRole().name(),
+                savedUser.getUserId(),
                 "Register successful");
         return ResponseEntity.ok(response);
     }

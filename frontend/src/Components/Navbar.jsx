@@ -5,7 +5,7 @@ import Button from "../pages/Button";
 
 const Navbar = () => {
 	return (
-		<div className="fixed w-full bg-white shadow-md">
+		<div className="w-full bg-white shadow-md">
 			<div className="flex flex-row justify-between p-5 md:px-32 px-5">
 				<div className="flex flex-row items-center cursor-pointer">
 					<h1 className="text-xl font-semibold">Byte Me Bistro</h1>
