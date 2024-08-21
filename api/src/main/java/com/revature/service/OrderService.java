@@ -2,9 +2,11 @@ package com.revature.service;
 
 import com.revature.model.Order;
 import com.revature.model.OrderId;
+import com.revature.model.User;
 import com.revature.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -76,5 +78,15 @@ public class OrderService {
 
     public void deleteById(OrderId orderId) {
         orderRepository.deleteById(orderId);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByUserId(Long userId) {
+        List<Order> orders = orderRepository.findAll();
+        for (var order : orders) {
+            if (Objects.equals(order.getUser().getUserId(), userId)) {
+                orderRepository.delete(order);
+            }
+        }
     }
 }
