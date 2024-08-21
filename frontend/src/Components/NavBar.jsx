@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-scroll';
-import Button from '../pages/Button';
+import React from "react";
+import { Link } from "react-router-dom";
+import Button from "../pages/Button";
 
 const Navbar = () => {
     return (
@@ -10,13 +10,25 @@ const Navbar = () => {
                     <div className='flex flex-row items-center cursor-pointer'>
                         <h1 className='text-xl font-semibold'>Byte Me Bistro</h1>
                     </div>
-                    <nav className='hidden md:flex flex-row items-center text-lg font-medium gap-8 cursor-pointer'>
-                        <Link to="home" spy={true} smooth={true} duration={500} className='hover:text-brightColor transition-all'>Home</Link>
-                        <Link to="menu" spy={true} smooth={true} duration={500} className='hover:text-brightColor transition-all'>Menu</Link>
-                        <Link to="about" spy={true} smooth={true} duration={500} className='hover:text-brightColor transition-all'>About</Link>
+				<nav className="hidden md:flex flex-row items-center text-lg font-medium gap-8">
+					<Link to="/" className="hover:text-brightColor transition-all">
+						Home
+					</Link>
+					<Link to="/menu" className="hover:text-brightColor transition-all">
+						Menu
+					</Link>
+					<Link
+						to="/aboutus" // Add a route for 'About' if needed
+						className="hover:text-brightColor transition-all">
+						About
+					</Link>
                     
-                        <Button title = "Sign Up" />
-                        <Button title = "Login" />
+					<Link to="/register">
+						<Button title="Sign Up" />
+					</Link>
+					<Link to="/login">
+						<Button title="Login" />
+					</Link>
                     </nav>
                 </div>
             </div>
