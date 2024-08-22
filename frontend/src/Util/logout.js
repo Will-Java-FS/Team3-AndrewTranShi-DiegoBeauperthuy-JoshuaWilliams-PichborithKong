@@ -1,4 +1,6 @@
 const handleLogout = () => {
+	console.log("Logout clicked");
 	localStorage.removeItem("token"); // Remove the JWT token from localStorage
-	window.location.reload(); // Optionally reload the page to reset the state
+	setIsLoggedIn(false); // Update the state to reflect the logged-out status
+	navigate("/"); // Redirect to the home page
 };

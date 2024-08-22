@@ -1,0 +1,32 @@
+/* Base styles for labels */
+/* Container for positioning */
+.relative {
+    position: relative;
+}
+
+/* Label styling */
+label {
+    position: absolute;
+    top: 0;
+    left: 0.5rem;
+    padding-left: 0.5rem;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: gray;
+    font-size: 1rem;
+    transform-origin: 0 0;
+}
+
+/* When input is focused or has value, move label */
+input:focus ~ label,
+input:not(:placeholder-shown) ~ label {
+    top: -1rem;
+    left: 0.5rem;
+    font-size: 0.75rem;
+    color: black;
+}
+
+/* Placeholder styling */
+input::placeholder {
+    color: transparent;
+}

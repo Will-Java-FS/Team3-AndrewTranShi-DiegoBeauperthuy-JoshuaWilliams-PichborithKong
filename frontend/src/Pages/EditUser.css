@@ -1,0 +1,129 @@
+/* EditUser.css */
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.duration-300 {
+    transition-duration: 300ms;
+}
+
+.text-gray-500 {
+    color: #6b7280;
+}
+
+.text-red-600 {
+    color: #dc2626;
+}
+
+.bg-gray-100 {
+    background-color: #f3f4f6;
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.border-gray-200 {
+    border-color: #e5e7eb;
+}
+
+.border-0 {
+    border-width: 0;
+}
+
+.border-b-2 {
+    border-bottom-width: 2px;
+}
+
+.shadow-lg {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-3xl {
+    border-radius: 1.5rem;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+.transition-all {
+    transition-property: all;
+}
+
+.ease-linear {
+    transition-timing-function: linear;
+}
+
+.focus:outline-none {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.bg-orange-500 {
+    background-color: #f97316;
+}
+
+.bg-red-500 {
+    background-color: #ef4444;
+}
+
+.hover:bg-orange-400:hover {
+    background-color: #fb923c;
+}
+
+.hover:bg-red-400:hover {
+    background-color: #f87171;
+}
+
+.hover:shadow-lg:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.mt-0 {
+    margin-top: 0;
+}
+
+.mt-3 {
+    margin-top: 0.75rem;
+}
+
+.pt-3 {
+    padding-top: 0.75rem;
+}
+
+.pb-2 {
+    padding-bottom: 0.5rem;
+}
+
+.pt-5 {
+    padding-top: 1.25rem;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
