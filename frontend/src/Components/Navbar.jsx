@@ -18,9 +18,7 @@ const Navbar = () => {
 		<div className="w-full bg-white shadow-md">
 			<div className="flex flex-row justify-between p-5 md:px-32 px-5">
 				<div className="flex flex-row items-center cursor-pointer">
-					<Link to="/">
-						<h1 className="text-xl font-semibold">Byte Me Bistro</h1>
-					</Link>
+					<h1 className="text-xl font-semibold">Byte Me Bistro</h1>
 				</div>
 				<nav className="hidden md:flex flex-row items-center text-lg font-medium gap-8">
 					<Link to="/" className="hover:text-brightColor transition-all">

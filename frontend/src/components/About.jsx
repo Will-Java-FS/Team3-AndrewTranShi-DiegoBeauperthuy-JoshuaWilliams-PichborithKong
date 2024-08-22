@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "../pages/Button";
-import { Link } from "react-router-dom";
 
 
 const About = () => {
@@ -11,21 +10,18 @@ const About = () => {
             <div className="space-y-4 lg:pt-14">
                 <h1 className="font-semibold text-4xl text-center md:text-start">Why Us?</h1>
                 <p>
-                At Byte Me Bistro, our commitment to culinary excellence and innovation sets us apart. Led by visionary chef Andrew Tran Shi, 
-                renowned for his mastery of comfort food with a creative twist, we transform everyday dishes into extraordinary culinary experiences. 
-                Partnering with food connoisseur Joshua Williams ensures that each menu item reflects the highest standards of taste and quality, promising 
-                a dining adventure that exceeds expectations.
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. 
+                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, 
+                ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla 
+                vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
                 </p>
                 <p>
-                What truly distinguishes us is our fusion of bold flavors with cutting-edge technology, curated by tech-savvy entrepreneur Pichborith Kong. 
-                From interactive dining experiences to seamless service innovations, Byte Me Bistro redefines how guests enjoy their meals. Backed by the 
-                strategic foresight of business magnate Diego Beauperthuy, we are not just a restaurant but a destination where innovation meets gastronomy, 
-                inviting you to savor moments of joy and discovery with every visit.
+                Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, 
+                sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit 
+                id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
                 </p>
                 <div className="flex justify-center lg:justify-start">
-                    <Link to="/aboutus">
-                        <Button title="Learn More" />
-                    </Link>
+                    <Button title="Learn More" />
                 </div>
             </div>
         </div>

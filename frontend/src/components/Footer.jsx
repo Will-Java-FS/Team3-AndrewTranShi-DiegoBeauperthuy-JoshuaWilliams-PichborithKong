@@ -23,7 +23,7 @@ const Footer = () => {
 						</a>
 						<a
 							className="hover:text-brightColor transition-all cursor-pointer"
-							href="/aboutus">
+							href="/">
 							About
 						</a>
 					</nav>
