@@ -28,9 +28,9 @@ function UserLogin() {
 				username,
 				password
 			});
-			const { token, role } = response.data; // Ensure backend returns these fields
+			const { token, role, userId } = response.data; // Ensure backend returns these fields
 
-			login(token, role);
+			login(token, role, userId);
 			setMessage("Login successful!");
 
 			if (role === "ADMIN") {
