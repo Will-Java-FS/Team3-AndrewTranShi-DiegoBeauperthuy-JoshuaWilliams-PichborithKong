@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Util/AuthContext.jsx";
+import { useEffect } from "react";
 
 function UserLogin() {
+
+	useEffect(() => {
+		document.title = "Login";
+	}, []);
+
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [message, setMessage] = useState(null);
