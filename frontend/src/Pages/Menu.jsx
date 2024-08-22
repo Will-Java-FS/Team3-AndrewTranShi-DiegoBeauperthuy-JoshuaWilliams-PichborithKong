@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function Menu() {
+
+	useEffect(() => {
+		document.title = "Menu";
+	}, []);
+
 	const [menuItems, setMenuItems] = useState([]);
 	const [selectedItems, setSelectedItems] = useState([]);
 	const navigate = useNavigate();
