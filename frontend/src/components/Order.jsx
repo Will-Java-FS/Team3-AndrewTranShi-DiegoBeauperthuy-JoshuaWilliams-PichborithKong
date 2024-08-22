@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 export default function Order() {
     const [menuItems, setMenuItems] = useState([]);
     const [orders, setOrders] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0.0);
+    const navigate = useNavigate();
 
 
     const getOrdersFromApi = async () => {
@@ -31,6 +33,10 @@ export default function Order() {
         const total = orders.reduce((sum, order) => sum + parseFloat(order[3]), 0);
         setTotalPrice(total.toFixed(2));
     } 
+
+    function thankYouPage() {
+        navigate("/thanks")
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -78,7 +84,9 @@ export default function Order() {
             <p>$ {totalPrice}</p>
             </div>
             <div className="flex items-center justify-center m-4 mb-8">
-            <button type='button' className='bg-green-700 text-white p-4 rounded'>Checkout</button>
+            <button type='button' className='bg-green-700 text-white p-4 rounded'
+            onClick={thankYouPage}
+            >Checkout</button>
             </div>
         </>)
 }

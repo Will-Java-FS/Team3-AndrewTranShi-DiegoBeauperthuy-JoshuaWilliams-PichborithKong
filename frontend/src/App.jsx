@@ -10,6 +10,7 @@ import UserRegister from "./components/UserRegister";
 import AboutUs from "./Pages/AboutUs";
 import Home from "./Pages/Home";
 import Menu from "./Pages/Menu";
+import Thanks from "./Pages/Thanks"
 import Dashboard from "./Pages/Dashboard";
 import EditUser from "./Pages/EditUser";
 import EditMenuItem from "./components/EditMenuItem";
@@ -36,6 +37,7 @@ const AppRoutes = () => {
 			<Route path="/login" element={<UserLogin />} />
 			<Route path="/aboutus" element={<AboutUs />} />
 			<Route path="/register" element={<UserRegister />} />
+			<Route path="/thanks" element={<Thanks />} />
 		</Routes>
 	);
 };
