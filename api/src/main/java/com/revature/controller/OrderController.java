@@ -1,13 +1,23 @@
 package com.revature.controller;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import com.revature.model.Menu;
+import com.revature.model.Order;
+import com.revature.model.OrderDetails;
+import com.revature.model.OrderId;
+import com.revature.model.User;
+import com.revature.service.MenuService;
+import com.revature.service.OrderService;
+import com.revature.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.revature.model.*;
-import com.revature.service.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +39,40 @@ public class OrderController {
         this.menuService = menuService;
     }
 
+    @GetMapping()
+    public ResponseEntity<List<Map<String, Object>>> getAllOrders() {
+        List<Map<String, Object>> orders = orderService.findAllGroupedByUserNameAndUserId();
+
+        if (orders.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(List.of(Map.of("message", "Orders not found")));
+        } else {
+            return ResponseEntity.ok(orders);
+        }
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getOrdersByUserId(@PathVariable Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User ID not found");
+        }
+        List<Order> orders = orderRepository.findByUserId(userId);
+        return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/{userId}/{menuId}")
+    public ResponseEntity<OrderDetails> getOrderById(@PathVariable Long userId, @PathVariable Long menuId) {
+        try {
+            OrderId orderId = new OrderId(userId, menuId);
+            Optional<Order> order = orderService.findById(orderId);
+            return order.map(o -> ResponseEntity.ok(new OrderDetails(o))) // 200
+                    .orElseGet(() -> ResponseEntity.notFound().build()); // 404
+        } catch (Exception e) {
+            log.error("Error occurred while fetching order", e);
+            return ResponseEntity.internalServerError().build(); // 500
+        }
+    }
+
     @PostMapping
     public ResponseEntity<OrderDetails> createOrder(@RequestBody NewOrder newOrder) {
         try {
@@ -45,41 +89,6 @@ public class OrderController {
             return ResponseEntity.ok(new OrderDetails(savedOrder)); // 200
         } catch (Exception e) {
             log.error("Error occurred while creating order", e);
-            return ResponseEntity.internalServerError().build(); // 500
-        }
-    }
-
-    @GetMapping()
-    public ResponseEntity<List<Map<String, Object>>> getAllOrders() {
-        List<Map<String, Object>> orders = orderService.findAllGroupedByUserNameAndUserId();
-
-        if (orders.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(List.of(Map.of("message", "Orders not found")));
-        } else {
-            return ResponseEntity.ok(orders);
-        }
-    }
-
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Object[]>> getOrdersByUserId(@PathVariable Long userId) {
-        List<Object[]> orders = orderService.findOrdersByUserId(userId);
-
-        if (orders.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonList(new Object[]{"User ID not found"}));
-        } else {
-            return ResponseEntity.ok(orders);
-        }
-    }
-
-    @GetMapping("/{userId}/{menuId}")
-    public ResponseEntity<OrderDetails> getOrderById(@PathVariable Long userId, @PathVariable Long menuId) {
-        try {
-            OrderId orderId = new OrderId(userId, menuId);
-            Optional<Order> order = orderService.findById(orderId);
-            return order.map(o -> ResponseEntity.ok(new OrderDetails(o))) // 200
-                    .orElseGet(() -> ResponseEntity.notFound().build()); // 404
-        } catch (Exception e) {
-            log.error("Error occurred while fetching order", e);
             return ResponseEntity.internalServerError().build(); // 500
         }
     }

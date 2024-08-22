@@ -57,6 +57,7 @@ export default function Menu() {
 
 		if (!userId) {
 			console.error("User ID is undefined");
+			console.log(userId);
 			navigate("/login");
 			return;
 		}
