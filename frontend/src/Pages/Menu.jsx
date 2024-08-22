@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 export default function Menu() {
 	const [menuItems, setMenuItems] = useState([]);
 	const [selectedItems, setSelectedItems] = useState([]);
@@ -43,20 +42,25 @@ export default function Menu() {
 	const orderCurrentItemsSelected = async () => {
 		if (selectedItems.length === 0) {
 			alert("No items selected");
-		} else if (localStorage.getItem("userId") == -1 || localStorage.getItem("userId") == undefined) {
-			navigate('/login');
+		} else if (
+			localStorage.getItem("userId") == -1 ||
+			localStorage.getItem("userId") == undefined
+		) {
+			navigate("/login");
 		} else {
-
 			try {
 				for (const item of selectedItems) {
-				  const response = await axios.post("http://localhost:8080/api/orders", {
-					user_id: localStorage.getItem("userId"),
-					menu_id: item.menuId
-				  });
-				  //console.log("Creating order response: ", response.data);
+					const response = await axios.post(
+						"http://localhost:8080/api/orders",
+						{
+							user_id: localStorage.getItem("userId"),
+							menu_id: item.menuId
+						}
+					);
+					//console.log("Creating order response: ", response.data);
 				}
-				setTimeout(navigate('/myorder'), 100);
-			  } catch (e) {
+				setTimeout(navigate("/myorder"), 100);
+			} catch (e) {
 				console.error("Error in post request", e);
 			}
 		}
@@ -73,7 +77,8 @@ export default function Menu() {
 	const groupedItems = groupItemsByType(menuItems);
 
 	return (
-		<><br></br>
+		<>
+			<br></br>
 			<h1 className="text-5xl text-center">Menu</h1>
 			<br />
 			<div>

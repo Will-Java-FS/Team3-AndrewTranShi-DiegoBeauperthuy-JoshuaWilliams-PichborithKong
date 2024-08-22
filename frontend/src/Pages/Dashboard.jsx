@@ -119,8 +119,6 @@ function Dashboard() {
 							<th className="py-2 px-4 border-b text-left">ID</th>
 							<th className="py-2 px-4 border-b text-left">Username</th>
 							<th className="py-2 px-4 border-b text-left">Role</th>
-							{/* <th className="py-2 px-4 border-b text-left">Created At</th>
-							<th className="py-2 px-4 border-b text-left">Updated At</th> */}
 							<th className="py-2 px-4 border-b text-left">Actions</th>
 						</tr>
 					</thead>
@@ -130,12 +128,6 @@ function Dashboard() {
 								<td className="py-2 px-4 border-b">{user.userId}</td>
 								<td className="py-2 px-4 border-b">{user.username}</td>
 								<td className="py-2 px-4 border-b">{user.role}</td>
-								{/* <td className="py-2 px-4 border-b">
-									{new Date(user.createdAt).toLocaleString()}
-								</td>
-								<td className="py-2 px-4 border-b">
-									{new Date(user.updatedAt).toLocaleString()}
-								</td> */}
 								<td className="py-2 px-4 border-b">
 									<button
 										className="btn btn-sm btn-warning mx-1"
@@ -170,6 +162,7 @@ function Dashboard() {
 				<table className="table table-zebra min-w-full bg-white border border-slate-200 shadow-md">
 					<thead>
 						<tr>
+							<th className="py-2 px-4 border-b text-left">Image</th>
 							<th className="py-2 px-4 border-b text-left">Name</th>
 							<th className="py-2 px-4 border-b text-left">Description</th>
 							<th className="py-2 px-4 border-b text-left">Type</th>
@@ -180,6 +173,13 @@ function Dashboard() {
 					<tbody>
 						{menus.map((menuItem) => (
 							<tr key={menuItem.menuId}>
+								<td className="py-2 px-4 border-b">
+									<img
+										src={menuItem.imageUrl}
+										alt={menuItem.name}
+										className="h-16 w-16 object-cover"
+									/>
+								</td>
 								<td className="py-2 px-4 border-b">{menuItem.name}</td>
 								<td className="py-2 px-4 border-b">{menuItem.description}</td>
 								<td className="py-2 px-4 border-b">{menuItem.type}</td>
