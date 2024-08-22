@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../pages/Button";
+import { Link } from "react-router-dom";
 
 
 const About = () => {
@@ -22,7 +23,9 @@ const About = () => {
                 inviting you to savor moments of joy and discovery with every visit.
                 </p>
                 <div className="flex justify-center lg:justify-start">
-                    <Button title="Learn More" />
+                    <Link to="/aboutus">
+                        <Button title="Learn More" />
+                    </Link>
                 </div>
             </div>
         </div>
