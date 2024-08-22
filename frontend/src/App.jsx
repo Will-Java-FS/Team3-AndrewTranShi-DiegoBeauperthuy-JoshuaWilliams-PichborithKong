@@ -13,10 +13,10 @@ import Menu from "./Pages/Menu";
 import Dashboard from "./Pages/Dashboard";
 import EditUser from "./Pages/EditUser";
 import EditMenuItem from "./components/EditMenuItem";
-import { AuthProvider, useAuth } from "./Util/AuthContext.jsx"; // Import AuthProvider
+import { AuthProvider, useAuth } from "./Util/AuthContext.jsx";
 
 const AppRoutes = () => {
-	const { auth } = useAuth(); // This should work if within AuthProvider
+	const { auth } = useAuth();
 
 	return (
 		<Routes>
@@ -24,7 +24,7 @@ const AppRoutes = () => {
 			<Route path="/edit-user/:userId" element={<EditUser />} />
 			<Route path="/edit-menu-item/:itemId" element={<EditMenuItem />} />
 			<Route path="/menu" element={<Menu />} />
-			<Route path="/myOrder" element={<Order />} />
+			<Route path="/myOrder" element={auth.token ? <Order /> : <UserLogin />} />
 			<Route
 				path="/dashboard"
 				element={auth.token ? <Dashboard /> : <UserLogin />}

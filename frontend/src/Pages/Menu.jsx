@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from "../Util/AuthContext"; // Assuming AuthContext is in src/Util
 
 export default function Menu() {
-
 	useEffect(() => {
 		document.title = "Menu";
 	}, []);
@@ -12,12 +11,12 @@ export default function Menu() {
 	const [menuItems, setMenuItems] = useState([]);
 	const [selectedItems, setSelectedItems] = useState([]);
 	const navigate = useNavigate();
+	const { auth } = useAuth(); // Using auth context to get userId
 
 	function getItemsFromAPI() {
 		axios
 			.get("http://localhost:8080/api/menus")
 			.then((response) => {
-				//console.log("Getting menu items: ", response.data);
 				setMenuItems(response.data);
 			})
 			.catch((error) => {
@@ -46,39 +45,53 @@ export default function Menu() {
 	};
 
 	const orderCurrentItemsSelected = async () => {
+		console.log("Selected items:", selectedItems);
+		console.log("User ID:", auth.userId);
+
 		if (selectedItems.length === 0) {
 			alert("No items selected");
-		} else if (localStorage.getItem("userId") == -1 || localStorage.getItem("userId") == undefined) {
-			navigate('/login');
-		} else {
+			return;
+		}
 
-			try {
-				for (const item of selectedItems) {
-				  const response = await axios.post("http://localhost:8080/api/orders", {
-					user_id: localStorage.getItem("userId"),
-					menu_id: item.menuId
-				  });
-				  //console.log("Creating order response: ", response.data);
+		const userId = auth.userId;
+
+		if (!userId) {
+			console.error("User ID is undefined");
+			navigate("/login");
+			return;
+		}
+
+		try {
+			for (const item of selectedItems) {
+				if (!item.menuId) {
+					console.error("Menu ID is undefined for item:", item);
+					alert(`Menu ID is undefined for item: ${item.name}`);
+					continue; // Skip items with undefined menuId
 				}
-				setTimeout(navigate('/myorder'), 100);
-			  } catch (e) {
-				console.error("Error in post request", e);
+
+				const response = await axios.post("http://localhost:8080/api/orders", {
+					user_id: userId,
+					menu_id: item.menuId
+				});
+				console.log("Order response:", response.data);
 			}
+			navigate("/myorder");
+		} catch (e) {
+			console.error(
+				"Error in post request",
+				e.response ? e.response.data : e.message
+			);
 		}
 	};
-
 	useEffect(() => {
 		getItemsFromAPI();
 	}, []);
 
-	useEffect(() => {
-		//console.log("Selected items:", selectedItems);
-	}, [selectedItems]);
-
 	const groupedItems = groupItemsByType(menuItems);
 
 	return (
-		<><br></br>
+		<>
+			<br />
 			<h1 className="text-5xl text-center">Menu</h1>
 			<br />
 			<div>
