@@ -1,8 +1,15 @@
 import React from "react";
 import Button from "../pages/Button";
-import About from "../components/About";
+import About from "../Components/About";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
+
+	useEffect(() => {
+		document.title = "Byte Me Bistro";
+	}, []);
+
 	return (
 		<>
 			<div className="min-h-screen flex flex-col justify-center items-center lg:flex-row lg:justify-between lg:px-32 px-5 bg-[url('/images/home-background.jpg')] bg-cover bg-no-repeat bg-center">
@@ -17,11 +24,12 @@ const Home = () => {
 						aliquip ex ea commodo consequat.
 					</p>
 					<div className="mt-4 lg:mt-6 flex justify-center lg:justify-start">
-						<Button
-							title="Order Now"
-							href="/menu"
-							className="py-3 px-6 text-lg lg:text-xl" // Adjust size here
-						/>
+						<Link to="menu">
+							<Button
+								title="Order Now"
+								className="py-3 px-6 text-lg lg:text-xl" // Adjust size here
+							/>
+						</Link>
 					</div>
 				</div>
 			</div>
