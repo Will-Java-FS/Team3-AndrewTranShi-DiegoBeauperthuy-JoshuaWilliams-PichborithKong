@@ -30,7 +30,7 @@ function UserLogin() {
 			if (role === "ADMIN") {
 				navigate("/dashboard");
 			} else {
-				navigate("/userDashboard");
+				navigate("/menu");
 			}
 		} catch (error) {
 			setMessage(

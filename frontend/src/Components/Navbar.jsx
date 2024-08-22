@@ -9,6 +9,7 @@ const Navbar = () => {
 	const isLoggedIn = !!auth.token; // Determine logged-in status from token
 
 	const handleLogout = () => {
+		console.log("Logout clicked"); // Debugging log
 		logout(); // Clear auth context and local storage
 		navigate("/"); // Redirect to the home page
 	};
