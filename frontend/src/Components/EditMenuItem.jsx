@@ -64,6 +64,18 @@ const EditMenuItem = () => {
 		<div className="min-h-screen flex items-center justify-center bg-gray-100 p-0 sm:p-12">
 			<div className="w-full max-w-md px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl">
 				<h1 className="text-2xl font-bold mb-8 text-center">Edit Menu Item</h1>
+
+				{/* Image Preview */}
+				{formData.imageUrl && (
+					<div className="flex justify-center mb-8">
+						<img
+							src={formData.imageUrl}
+							alt={formData.name || "Menu Item Image"}
+							className="h-48 w-48 object-cover rounded"
+						/>
+					</div>
+				)}
+
 				<form onSubmit={handleSubmit} noValidate>
 					<div className="relative z-0 w-full mb-5">
 						<input
@@ -133,7 +145,7 @@ const EditMenuItem = () => {
 							step="0.01"
 							className="pt-3 pb-2 pl-5 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
 						/>
-						<div className="absolute top-0 left-0 mt-3 ml-1 text-gray-400">
+						<div className="absolute top-0 left-0 mt-3 ml-1 text-emerald-600">
 							$
 						</div>
 						<label
