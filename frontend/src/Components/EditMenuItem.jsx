@@ -64,6 +64,18 @@ const EditMenuItem = () => {
 		<div className="min-h-screen flex items-center justify-center bg-gray-100 p-0 sm:p-12">
 			<div className="w-full max-w-md px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl">
 				<h1 className="text-2xl font-bold mb-8 text-center">Edit Menu Item</h1>
+
+				{/* Image Display */}
+				{formData.imageUrl && (
+					<div className="mb-6 flex justify-center">
+						<img
+							src={formData.imageUrl}
+							alt={formData.name}
+							className="w-32 h-32 object-cover rounded-full shadow-lg"
+						/>
+					</div>
+				)}
+
 				<form onSubmit={handleSubmit} noValidate>
 					<div className="relative z-0 w-full mb-5">
 						<input
