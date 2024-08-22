@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 export default function Order() {
-	const [menuItems, setMenuItems] = useState([]);
-	const [orders, setOrders] = useState([]);
-	const [totalPrice, setTotalPrice] = useState(0.0);
+    const [menuItems, setMenuItems] = useState([]);
+    const [orders, setOrders] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0.0);
+    const navigate = useNavigate();
+
 
 	const getOrdersFromApi = async () => {
 		try {
@@ -39,19 +43,23 @@ export default function Order() {
 		return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 	};
 
-	useEffect(() => {
-		const fetchData = async () => {
-			await getOrdersFromApi();
-			await getItemsFromAPI();
-		};
+	function thankYouPage() {
+        navigate("/thanks")
+    }
 
-		fetchData();
-	}, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            await getOrdersFromApi();
+            await getItemsFromAPI();
+        };
 
-	return (
-		<>
-			<h1 className="text-5xl text-center m-8">My Order</h1>
-			<div className="flex flex-wrap items-center justify-center">
+        fetchData();
+    }, []);
+
+
+    return (<>
+            <h1 className="text-5xl text-center m-8">My Order</h1>
+            <div className="flex flex-wrap items-center justify-center">
 				{orders.length === 0 ? (
 					<p>No Orders found yet</p>
 				) : (
@@ -90,11 +98,10 @@ export default function Order() {
 				<h2>Total Price</h2>
 				<p>$ {totalPrice}</p>
 			</div>
-			<div className="flex items-center justify-center m-4 mb-8">
-				<button type="button" className="bg-green-700 text-white p-4 rounded">
-					Checkout
-				</button>
-			</div>
-		</>
-	);
+            <div className="flex items-center justify-center m-4 mb-8">
+            <button type='button' className='bg-green-700 text-white p-4 rounded'
+            onClick={thankYouPage}
+            >Checkout</button>
+            </div>
+        </>)
 }
