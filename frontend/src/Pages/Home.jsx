@@ -1,8 +1,14 @@
 import React from "react";
 import Button from "../pages/Button";
 import About from "../components/About";
+import { useEffect } from "react";
 
 const Home = () => {
+
+	useEffect(() => {
+		document.title = "Byte Me Bistro";
+	}, []);
+
 	return (
 		<>
 			<div className="min-h-screen flex flex-col justify-center items-center lg:flex-row lg:justify-between lg:px-32 px-5 bg-[url('/images/home-background.jpg')] bg-cover bg-no-repeat bg-center">
