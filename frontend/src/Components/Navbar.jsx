@@ -44,6 +44,7 @@ const Navbar = () => {
 						</>
 					) : (
 						<>
+							<h1>Welcome, {auth.role}</h1>
 							<Link to="/dashboard">
 								<Button title="Dashboard" />
 							</Link>

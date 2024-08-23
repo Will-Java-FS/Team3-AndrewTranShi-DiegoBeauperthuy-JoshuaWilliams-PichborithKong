@@ -141,7 +141,7 @@ const CreateMenuItem = () => {
 
 					<button
 						type="submit"
-						className="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-orange-500 hover:bg-orange-400 hover:shadow-lg focus:outline-none">
+						className="w-full px-6 py-3 mt-3 text-lg btn-ghost text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-orange-500 hover:bg-orange-400 hover:shadow-lg focus:outline-none">
 						Create Menu Item
 					</button>
 					<button

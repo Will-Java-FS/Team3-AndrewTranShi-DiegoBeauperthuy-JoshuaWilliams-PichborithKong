@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Dashboard() {
-
 	useEffect(() => {
 		document.title = "Dashboard";
 	}, []);
-	
+
 	const [users, setUsers] = useState([]);
 	const [menus, setMenus] = useState([]);
 	const [loading, setLoading] = useState(true);
