@@ -16,6 +16,13 @@ The Bistro Management Application is a comprehensive software solution designed 
 ![ERD](./BistroManagementApp-EDR.png)
 Steps for setting up a local database can be found in our wiki: [Creating and Populating Database Tables](https://github.com/Will-Java-FS/Team3-AndrewTranShi-DiegoBeauperthuy-JoshuaWilliams-PichborithKong/wiki/Creating-and-Populating-Database-Tables)
 
+
+![Front](https://github.com/user-attachments/assets/347755df-3931-49b1-a3ef-4702a54879c0)
+![CleanShot 2024-08-23 at 10 52 30@2x](https://github.com/user-attachments/assets/81a2c03f-884f-4941-9256-56ab3edea18e)
+![EditMenu](https://github.com/user-attachments/assets/bbd5195a-bd75-4a0a-932e-3293adc03480)
+
+
+
 ## User Stories and API Endpoints
 
 ### User Management
